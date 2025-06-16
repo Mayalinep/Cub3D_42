@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:14:24 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/06/13 18:15:47 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:05:56 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	verif_bis(t_game *game)
 			if (game->map[j][i] == '0' && look_side(game->map, i, j, game) == 1)
 					quity(game, 2);
 			if (game->map[j][i] == 'S' || game->map[j][i] == 'E' || game->map[j][i] == 'N' || game->map[j][i] == 'W')
-					game->dir++;
+					i++;
 			i++;
 		}
 		i = 0;

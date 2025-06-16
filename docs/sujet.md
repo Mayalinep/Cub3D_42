@@ -88,7 +88,7 @@ SO ./path_to_the_south_texture
 — West texture :
 WE ./path_to_the_west_texture
     — identifiant : WE
-    — chemin vers la texture ouesy
+    — chemin vers la texture ouest
 
 — East texture :
 EA ./path_to_the_east_texture
