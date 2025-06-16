@@ -23,6 +23,12 @@ typedef struct s_parsed_data
     double  player_x;
     double player_y;
     char player_orientation;
+
+    //Vecteurs de direction et plan de camera
+    double dir_x;
+    double dir_y;
+    double plane_x;
+    double plane_y;
     
     // Chemins des textures
     char *texture_north;

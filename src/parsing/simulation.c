@@ -45,9 +45,13 @@ int init_test_map(t_parsed_data *data)
 // Initialisation de la position du joueur
 int init_test_player(t_parsed_data *data)
 {
-    data->player_x = 2;
-    data->player_y = 2;
+    data->player_x = 1.0;
+    data->player_y = 2.0;
     data->player_orientation = 'N';
+    data->dir_x = 0.0;
+    data->dir_y = -1.0;
+    data->plane_x = 0.66;
+    data->plane_y = 0.0;
     return (1);
 }
 
