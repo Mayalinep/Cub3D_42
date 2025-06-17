@@ -9,9 +9,21 @@ typedef struct s_game
 {
     t_parsed_data parsed_data;
     t_mlx_data mlx_data;
+    t_keys keys;
 } t_game;
 
-// Structure pour stocker les données parsées
+typedef struct s_keys
+{
+    int w_press;
+    int a_press;
+    int s_press;
+    int d_press;
+    int l_press;
+    int r_press;
+} t_keys;
+
+//Structure pour stocker les données parsées
+
 typedef struct s_parsed_data
 {
     // Dimensions de la carte
