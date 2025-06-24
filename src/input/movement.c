@@ -6,11 +6,11 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:27:42 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/17 16:10:34 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/24 09:09:57 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 int	wall_collision(double new_x, double new_y, t_parsed_data *data)
 {

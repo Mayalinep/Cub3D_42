@@ -114,6 +114,13 @@ WE ./path_to_the_west_texture
 EA ./path_to_the_east_texture
 F 220,100,0
 C 225,30,0
+
+
+
+◦ Si un problème de configuration de n’importe quel type est rencontré dans
+le fichier, le programme doit quitter et renvoyer "Error\n" suivi d’un message
+d’erreur explicite de votr
+
 1111111111111111111111111
 1000000000110000000000001
 1011000001110000000000001
@@ -127,9 +134,4 @@ C 225,30,0
 10000000000000001101010010001
 11000001110101011111011110N0111
 11110111 1110101 101111010001
-11111111 1111111 111111111111
-
-
-◦ Si un problème de configuration de n’importe quel type est rencontré dans
-le fichier, le programme doit quitter et renvoyer "Error\n" suivi d’un message
-d’erreur explicite de votre choix.
+11111111 1111111 111111111111e choix.

@@ -22,5 +22,13 @@ typedef struct s_mlx_data
     int endian; //Ordre des octets dans la memoire (0 pour petit endian, 1 pour grand endian)
 } t_mlx_data;
 
-
+//fonction pour configurer les touches du clavier
+int init_keys(t_keys *keys);
+int handle_keypress(int keycode, t_game *game);
+int handle_keyrelease(int keycode, t_game *game);
+int handle_close(t_game *game);
+int wall_collision(double new_x, double new_y, t_parsed_data *data);
+int try_move(t_game *game, double dir_x, double dir_y);
+int keypress_rotation(int keycode, t_game *game);
+int update_player(t_game *game);
 #endif

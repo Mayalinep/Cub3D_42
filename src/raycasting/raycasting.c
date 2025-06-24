@@ -6,44 +6,97 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:36:47 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/17 18:03:53 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/24 10:49:35 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
-void calculate_ray_direction(int x, t_game *game, double *ray_dir_x, double *ray_dir_y)
+void	calculate_ray_direction(int x, t_game *game, double *ray_dir_x,
+		double *ray_dir_y)
 {
-    double camera_x;
-    camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
-    *ray_dir_x = game->parsed_data.dir_x + game->parsed_data.plane_x * camera_x;
-    *ray_dir_y = game->parsed_data.dir_y + game->parsed_data.plane_y * camera_x;
+	double	camera_x;
+
+	if (x < 0 || x >= SCREEN_WIDTH)
+		return ;
+	camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
+	*ray_dir_x = game->parsed_data.dir_x + game->parsed_data.plane_x * camera_x;
+	*ray_dir_y = game->parsed_data.dir_y + game->parsed_data.plane_y * camera_x;
 }
 
-double find_wall_distance(double ray_dir_x, double ray_dir_y, t_game *game)
+double	find_wall_distance(double ray_dir_x, double ray_dir_y, t_game *game)
 {
-    return (0);
+	double	distance;
+
+	game->raycasting.map_x = (int)game->parsed_data.player_x;
+	game->raycasting.map_y = (int)game->parsed_data.player_y;
+	game->raycasting.delta_dist_x = calculate_delta_dist_x(ray_dir_x);
+	game->raycasting.delta_dist_y = calculate_delta_dist_y(ray_dir_y);
+	ray_orientation(ray_dir_x, ray_dir_y, &game->raycasting.step_x,
+		&game->raycasting.step_y);
+	if (game->raycasting.step_x == -1)
+		game->raycasting.side_dist_x = (game->parsed_data.player_x
+				- game->raycasting.map_x) * game->raycasting.delta_dist_x;
+	else
+		game->raycasting.side_dist_x = (game->raycasting.map_x + 1.0
+				- game->parsed_data.player_x) * game->raycasting.delta_dist_x;
+	if (game->raycasting.step_y == -1)
+		game->raycasting.side_dist_y = (game->parsed_data.player_y
+				- game->raycasting.map_y) * game->raycasting.delta_dist_y;
+	else
+		game->raycasting.side_dist_y = (game->raycasting.map_y + 1.0
+				- game->parsed_data.player_y) * game->raycasting.delta_dist_y;
+	dda_loop(game);
+	distance = calculate_final_distance(ray_dir_x, ray_dir_y, game);
+	calculate_wall_x(ray_dir_x, ray_dir_y, distance, game);
+	return (distance);
 }
 
-int calculate_line_height(double distance)
+void	draw_vertical_line(int x, int line_height, t_game *game)
 {
-    return (0);
+	int	draw_start;
+	int	draw_end;
+
+	draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
+	draw_end = line_height / 2 + SCREEN_HEIGHT / 2;
+	// Protectection contre les valeurs negatives
+	if (draw_start < 0)
+		draw_start = 0;
+	// Protection contre les valeurs qui depassent l ecran
+	if (draw_end >= SCREEN_HEIGHT)
+		draw_end = SCREEN_HEIGHT - 1;
 }
 
-int ray_casting(t_game *game)
+int	calculate_line_height(double distance)
 {
-    int x;
-    double ray_dir_x;
-    double ray_dir_y;
-    double distance;
+	int	line_height;
 
-    x = 0;
-    while (x < SCREEN_WIDTH)
-    {
-        calculate_ray_direction(x, game, &ray_dir_x, &ray_dir_y);
-        distance = find_wall_distance(ray_dir_x, ray_dir_y, game);
-        calculate_line_height(distance);
-        x++;
-    }
-    return (0);
+	if (distance <= 0)
+		return (SCREEN_HEIGHT);
+	line_height = (int)(SCREEN_HEIGHT / distance);
+	if (line_height > SCREEN_HEIGHT)
+		line_height = SCREEN_HEIGHT;
+	return (line_height);
+}
+
+int	ray_casting(t_game *game)
+{
+	int		x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	distance;
+	int		line_height;
+
+	if (!game)
+		return (-1);
+	x = 0;
+	while (x < SCREEN_WIDTH)
+	{
+		calculate_ray_direction(x, game, &ray_dir_x, &ray_dir_y);
+		distance = find_wall_distance(ray_dir_x, ray_dir_y, game);
+		line_height = calculate_line_height(distance);
+		draw_vertical_line(x, line_height, game);
+		x++;
+	}
+	return (0);
 }

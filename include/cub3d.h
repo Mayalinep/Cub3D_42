@@ -4,10 +4,12 @@
 #include "mlx.h"
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 typedef struct s_game
 {
     t_parsed_data parsed_data;
+	t_raycasting raycasting;
     t_mlx_data mlx_data;
     t_keys keys;
 } t_game;
@@ -57,12 +59,40 @@ typedef struct s_parsed_data
     int ceiling_b;
 } t_parsed_data;
 
+typedef struct s_raycasting
+{
+	double delta_dist_x; //distance pour traverser une case en x
+	double delta_dist_y; //distance pour traverser une case en y
+	int step_x; //sens du rayon en x
+	int step_y; //sens du rayon en y
+	int map_x; //coordonnée x de la case en cours
+	int map_y; //coordonnée y de la case en cours
+	int hit; // 0 = pas de mur touché, 1 = mur touché
+	int side; // 0 = mur vertical (X), 1 = mur horizontal (Y)
+    double side_dist_x; // distance entre le joueur et la prochaine ligne verticale
+    double side_dist_y; // distance entre le joueur et la prochaine ligne horizontale
+	double wall_x; // position X sur le mur pour les textures 
+} t_raycasting;
+
 // Prototypes des fonctions de simulation
 int simulate_parsing(t_parsed_data *data);
 int init_test_map(t_parsed_data *data);
 int init_test_player(t_parsed_data *data);
 int init_test_textures(t_parsed_data *data);
 int init_test_colors(t_parsed_data *data);
+
+
+// Fonctions raycasting
+int ray_casting(t_game *game);
+void calculate_ray_direction(int x, t_game *game, double *ray_dir_x, double *ray_dir_y);
+double find_wall_distance(double ray_dir_x, double ray_dir_y, t_game *game);
+double calculate_delta_dist_x(double ray_dir_x);
+double calculate_delta_dist_y(double ray_dir_y);
+void ray_orientation(double ray_dir_x, double ray_dir_y, int *step_x, int *step_y);
+int calculate_line_height(double distance);
+void dda_loop(t_game *game);
+double calculate_final_distance(double ray_dir_x, double ray_dir_y, t_game *game);
+void calculate_wall_x(double ray_dir_x, double ray_dir_y, double distance, t_game *game);
 
 // Fonctions utilitaires
 char *ft_strdup(const char *s);
