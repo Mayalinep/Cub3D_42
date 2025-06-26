@@ -6,11 +6,11 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:03:33 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/24 10:52:57 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/26 15:08:11 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 double	calculate_delta_dist_x(double ray_dir_x)
 {

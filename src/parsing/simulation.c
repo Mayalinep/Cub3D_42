@@ -1,5 +1,4 @@
-#include "../include/cub3d.h"
-#include <stdio.h>
+#include "cub3d.h"
 
 // Fonction principale de simulation
 int simulate_parsing(t_parsed_data *data)

@@ -6,11 +6,11 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 09:36:35 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/24 10:41:29 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/26 15:08:19 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 void	dda_loop(t_game *game)
 {

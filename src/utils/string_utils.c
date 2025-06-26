@@ -1,4 +1,4 @@
-#include "../../include/cub3d.h"
+#include "cub3d.h"
 
 // Duplique une chaîne de caractères
 char *ft_strdup(const char *s)

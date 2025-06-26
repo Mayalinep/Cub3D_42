@@ -6,11 +6,12 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:36:47 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/24 10:49:35 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/26 15:08:03 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "draw.h"
+#include "cub3d.h"
 
 void	calculate_ray_direction(int x, t_game *game, double *ray_dir_x,
 		double *ray_dir_y)
@@ -50,21 +51,6 @@ double	find_wall_distance(double ray_dir_x, double ray_dir_y, t_game *game)
 	distance = calculate_final_distance(ray_dir_x, ray_dir_y, game);
 	calculate_wall_x(ray_dir_x, ray_dir_y, distance, game);
 	return (distance);
-}
-
-void	draw_vertical_line(int x, int line_height, t_game *game)
-{
-	int	draw_start;
-	int	draw_end;
-
-	draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
-	draw_end = line_height / 2 + SCREEN_HEIGHT / 2;
-	// Protectection contre les valeurs negatives
-	if (draw_start < 0)
-		draw_start = 0;
-	// Protection contre les valeurs qui depassent l ecran
-	if (draw_end >= SCREEN_HEIGHT)
-		draw_end = SCREEN_HEIGHT - 1;
 }
 
 int	calculate_line_height(double distance)

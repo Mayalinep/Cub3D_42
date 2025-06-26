@@ -6,11 +6,11 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:27:42 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/24 09:09:57 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/26 15:15:39 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
 
 int	wall_collision(double new_x, double new_y, t_parsed_data *data)
 {
@@ -41,19 +41,22 @@ int	try_move(t_game *game, double dir_x, double dir_y)
 	}
 	return (0);
 }
+
 int update_player(t_game *game)
 {
-    if(game->keys.w_press)
-        try_move(game, game->parsed_data.dir_x, game->parsed_data.dir_y);
-    if(game->keys.s_press)
-        try_move(game, -game->parsed_data.dir_x, -game->parsed_data.dir_y);
-    if(game->keys.a_press)
-        try_move(game, -game->parsed_data.plane_x, -game->parsed_data.plane_y);
-    if(game->keys.d_press)
-        try_move(game, game->parsed_data.plane_x, game->parsed_data.plane_y);
-    if(game->keys.l_press)
-        keypress_rotation(KEY_LEFT, game);
-    if(game->keys.r_press)
-        keypress_rotation(KEY_RIGHT, game);
-    return (0);
+	if(game->keys.w_press)
+		try_move(game, game->parsed_data.dir_x, game->parsed_data.dir_y);
+	if(game->keys.s_press)
+		try_move(game, -game->parsed_data.dir_x, -game->parsed_data.dir_y);
+	if(game->keys.a_press)
+		try_move(game, -game->parsed_data.plane_x, -game->parsed_data.plane_y);
+	if(game->keys.d_press)
+		try_move(game, game->parsed_data.plane_x, game->parsed_data.plane_y);
+	if(game->keys.l_press)
+		keypress_rotation(KEY_LEFT, game);
+	if(game->keys.r_press)
+		keypress_rotation(KEY_RIGHT, game);
+	ray_casting(game);
+	mlx_put_image_to_window(game->mlx_data.mlx, game->mlx_data.win, game->mlx_data.img, 0, 0);
+	return (0);
 }
