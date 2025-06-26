@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:36:47 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/26 15:08:03 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/26 16:32:53 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ int	ray_casting(t_game *game)
 
 	if (!game)
 		return (-1);
+	
+	// Dessiner le sol et le ciel en premier
+	draw_floor_and_ceiling(game);
+	
 	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
@@ -84,5 +88,9 @@ int	ray_casting(t_game *game)
 		draw_vertical_line(x, line_height, game);
 		x++;
 	}
+	
+	// Dessiner la mini-map par-dessus
+	draw_minimap(game);
+	
 	return (0);
 }

@@ -5,129 +5,113 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/06/26 14:41:00 by mpelage           #+#    #+#              #
-#    Updated: 2025/06/26 14:54:20 by mpelage          ###   ########.fr        #
+#    Created: 2025/06/26 00:00:00 by mpelage           #+#    #+#              #
+#    Updated: 2025/06/26 15:53:01 by mpelage          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+# Nom de l'exécutable
+NAME = cub3D
+
+# Compilateur et flags
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
-MLX_DIR = minilibx-linux
-MLX_LIB = $(MLX_DIR)/libmlx.a
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+CFLAGS = -Wall -Wextra -Werror -g3
+MATH_FLAGS = -lm
+INCLUDES = -I./include -I./minilibx-linux
+
+# Chemins
+SRC_DIR = src
 OBJ_DIR = obj
+MLX_DIR = minilibx-linux
 
-# Colors for progress bar
-GREEN = \033[32m
-YELLOW = \033[33m
-BLUE = \033[34m
-RED = \033[31m
-RESET = \033[0m
-BOLD = \033[1m
+# Fichiers sources
+SRCS = main.c \
+	$(SRC_DIR)/input/keyboard_utils.c \
+	$(SRC_DIR)/input/movement.c \
+	$(SRC_DIR)/input/rotation.c \
+	$(SRC_DIR)/mlx/init_mlx.c \
+	$(SRC_DIR)/parsing/simulation.c \
+	$(SRC_DIR)/raycasting/dda.c \
+	$(SRC_DIR)/raycasting/raycasting_utils.c \
+	$(SRC_DIR)/raycasting/raycasting.c \
+	$(SRC_DIR)/rendering/draw.c \
+	$(SRC_DIR)/utils/string_utils.c
 
-# Progress indicators
-PROGRESS_1 = $(GREEN)[$(BOLD)✓$(RESET)$(GREEN)]$(RESET)
-PROGRESS_2 = $(YELLOW)[$(BOLD)⟳$(RESET)$(YELLOW)]$(RESET)
-PROGRESS_3 = $(BLUE)[$(BOLD)⚡$(RESET)$(BLUE)]$(RESET)
-PROGRESS_4 = $(GREEN)[$(BOLD)🎯$(RESET)$(GREEN)]$(RESET)
+# Fichiers objets
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-# Main source files
-SRCS = main.c
+# Bibliothèques MinilibX
+MLX_LIB = $(MLX_DIR)/libmlx.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11
 
-# Parsing source files
-SRCS += src/parsing/simulation.c
+# Couleurs pour les messages
+GREEN = \033[0;32m
+RED = \033[0;31m
+BLUE = \033[0;34m
+YELLOW = \033[0;33m
+NC = \033[0m # No Color
 
-# Rendering source files
-SRCS += src/rendering/draw.c
+# Règle principale
+all: $(MLX_LIB) $(NAME)
 
-# Input source files
-SRCS += src/input/movement.c
-SRCS += src/input/keyboard_utils.c
-SRCS += src/input/rotation.c
+# Compilation de l'exécutable
+$(NAME): $(OBJS)
+	@echo "$(BLUE)Linking $(NAME)...$(NC)"
+	@$(CC) $(OBJS) $(MLX_FLAGS) $(MATH_FLAGS) -o $(NAME)
+	@echo "$(GREEN)✓ $(NAME) compiled successfully!$(NC)"
 
-# MLX source files
-SRCS += src/mlx/init_mlx.c
+# Compilation des fichiers objets
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@echo "$(YELLOW)Compiling $<...$(NC)"
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-# Raycasting source files
-SRCS += src/raycasting/raycasting.c
-SRCS += src/raycasting/raycasting_utils.c
-SRCS += src/raycasting/dda.c
-
-# Utils source files
-SRCS += src/utils/string_utils.c
-
-# Object files with obj/ prefix
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
-
-# Include directories
-INCLUDES = -Iinclude -I$(MLX_DIR)
-
-# Count total files for progress
-TOTAL_FILES = $(words $(SRCS))
-CURRENT_FILE = 0
-
-# Default target
-all: progress_start $(NAME) progress_end
-
-# Progress start message
-progress_start:
-	@echo "$(BOLD)$(BLUE)╔══════════════════════════════════════════════════════════════╗$(RESET)"
-	@echo "$(BOLD)$(BLUE)║                    $(GREEN)Cub3D Compilation$(BLUE)                    ║$(RESET)"
-	@echo "$(BOLD)$(BLUE)╚══════════════════════════════════════════════════════════════╝$(RESET)"
-	@echo "$(YELLOW)📁 Creating directories...$(RESET)"
-
-# Progress end message
-progress_end:
-	@echo "$(GREEN)$(BOLD)╔══════════════════════════════════════════════════════════════╗$(RESET)"
-	@echo "$(GREEN)$(BOLD)║                    $(BOLD)✅ Compilation Complete!$(GREEN)                    ║$(RESET)"
-	@echo "$(GREEN)$(BOLD)╚══════════════════════════════════════════════════════════════╝$(RESET)"
-
-# Create object directory structure
-$(OBJ_DIR):
-	@echo "$(PROGRESS_1) Directories created successfully"
-	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_DIR)/src/parsing
-	@mkdir -p $(OBJ_DIR)/src/rendering
-	@mkdir -p $(OBJ_DIR)/src/input
-	@mkdir -p $(OBJ_DIR)/src/mlx
-	@mkdir -p $(OBJ_DIR)/src/raycasting
-	@mkdir -p $(OBJ_DIR)/src/utils
-
-# Build the executable
-$(NAME): $(OBJS) $(MLX_LIB)
-	@echo "$(YELLOW)🔗 Linking objects...$(RESET)"
-	@$(CC) $(FLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
-	@echo "$(PROGRESS_4) $(BOLD)$(NAME)$(RESET) executable created"
-
-# Build MLX library
+# Compilation de la MinilibX
 $(MLX_LIB):
-	@echo "$(YELLOW)📚 Building MLX library...$(RESET)"
-	@$(MAKE) -C $(MLX_DIR) > /dev/null 2>&1
-	@echo "$(PROGRESS_1) MLX library ready"
+	@echo "$(BLUE)Compiling MinilibX...$(NC)"
+	@make -C $(MLX_DIR) > /dev/null 2>&1
+	@echo "$(GREEN)✓ MinilibX compiled successfully!$(NC)"
 
-# Compile source files to object files with progress
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	@$(eval CURRENT_FILE := $(shell echo $$(($(CURRENT_FILE) + 1))))
-	@echo "$(PROGRESS_2) Compiling $(BOLD)$<$(RESET) [$(CURRENT_FILE)/$(TOTAL_FILES)]"
-	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
-
-# Clean object files
+# Nettoyage des fichiers objets
 clean:
-	@echo "$(YELLOW)🧹 Cleaning object files...$(RESET)"
+	@echo "$(RED)Cleaning object files...$(NC)"
 	@rm -rf $(OBJ_DIR)
-	@$(MAKE) -C $(MLX_DIR) clean > /dev/null 2>&1
-	@echo "$(PROGRESS_1) Clean completed"
+	@make -C $(MLX_DIR) clean > /dev/null 2>&1
+	@echo "$(GREEN)✓ Clean completed!$(NC)"
 
-# Clean everything
+# Nettoyage complet
 fclean: clean
-	@echo "$(YELLOW)🗑️  Removing executable...$(RESET)"
+	@echo "$(RED)Removing executable...$(NC)"
 	@rm -f $(NAME)
-	@$(MAKE) -C $(MLX_DIR) fclean > /dev/null 2>&1
-	@echo "$(PROGRESS_1) Full clean completed"
+	@echo "$(GREEN)✓ Full clean completed!$(NC)"
 
-# Rebuild everything
+# Recompilation complète
 re: fclean all
 
-# Phony targets
-.PHONY: all clean fclean re progress_start progress_end
+# Tests et debug
+debug: CFLAGS += -fsanitize=address -fsanitize=undefined
+debug: re
+
+# Règle pour lancer le programme avec une carte de test
+test: $(NAME)
+	@if [ -f maps/test.cub ]; then \
+		echo "$(BLUE)Running $(NAME) with test map...$(NC)"; \
+		./$(NAME) maps/test.cub; \
+	else \
+		echo "$(YELLOW)No test map found. Running $(NAME) without arguments...$(NC)"; \
+		./$(NAME); \
+	fi
+
+# Règles qui ne correspondent pas à des fichiers
+.PHONY: all clean fclean re debug test
+
+# Règle d'aide
+help:
+	@echo "$(BLUE)Available targets:$(NC)"
+	@echo "  $(GREEN)all$(NC)     - Compile the project"
+	@echo "  $(GREEN)clean$(NC)   - Remove object files"
+	@echo "  $(GREEN)fclean$(NC)  - Remove object files and executable"
+	@echo "  $(GREEN)re$(NC)      - Recompile the project"
+	@echo "  $(GREEN)debug$(NC)   - Compile with debugging flags"
+	@echo "  $(GREEN)test$(NC)    - Run the program with test map"
+	@echo "  $(GREEN)help$(NC)    - Display this help message"

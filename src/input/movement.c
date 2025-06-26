@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:27:42 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/26 15:15:39 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/26 16:48:49 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	try_move(t_game *game, double dir_x, double dir_y)
 	double	new_y;
 	double	speed;
 
-	speed = 0.1;
+	speed = 0.05;
 	new_x = game->parsed_data.player_x + dir_x * speed;
 	new_y = game->parsed_data.player_y + dir_y * speed;
 	if (!wall_collision(new_x, new_y, &game->parsed_data))

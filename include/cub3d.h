@@ -19,10 +19,10 @@
 #define SCREEN_HEIGHT 600
 
 // Définitions des couleurs des murs
-#define WALL_NORTH_COLOR 0xFF0000  // Rouge
-#define WALL_SOUTH_COLOR 0x00FF00  // Vert  
-#define WALL_EAST_COLOR  0x0000FF  // Bleu
-#define WALL_WEST_COLOR  0xFFFF00  // Jaune
+#define WALL_NORTH_COLOR 0x404040  // Gris foncé
+#define WALL_SOUTH_COLOR 0x606060  // Gris moyen
+#define WALL_EAST_COLOR  0x808080  // Gris clair
+#define WALL_WEST_COLOR  0x505050  // Gris intermédiaire
 
 typedef struct s_mlx_data
 {

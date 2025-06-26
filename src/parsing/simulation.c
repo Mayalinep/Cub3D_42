@@ -3,23 +3,44 @@
 // Fonction principale de simulation
 int simulate_parsing(t_parsed_data *data)
 {
+    printf("Début simulate_parsing\n");
+    
     if (!data)
+    {
+        printf("Erreur: data est NULL\n");
         return (0);
+    }
     
+    printf("Test init_test_map...\n");
     if (!init_test_map(data))
+    {
+        printf("Erreur: init_test_map a échoué\n");
         return (0);
+    }
     
+    printf("Test init_test_player...\n");
     if (!init_test_player(data))
+    {
+        printf("Erreur: init_test_player a échoué\n");
         return (0);
+    }
     
+    printf("Test init_test_textures...\n");
     if (!init_test_textures(data))
+    {
+        printf("Erreur: init_test_textures a échoué\n");
         return (0);
+    }
     
+    printf("Test init_test_colors...\n");
     if (!init_test_colors(data))
+    {
+        printf("Erreur: init_test_colors a échoué\n");
         return (0);
+    }
     
     printf("Parsing simule avec succes\n");
-    return (1);
+    return (0);
 }
 
 // Initialisation de la carte de test
@@ -70,8 +91,8 @@ int init_test_colors(t_parsed_data *data)
     data->floor_r = 255;
     data->floor_g = 255;
     data->floor_b = 255;
-    data->ceiling_r = 0;
-    data->ceiling_g = 0;
+    data->ceiling_r = 255;
+    data->ceiling_g = 255;
     data->ceiling_b = 255;
     return (1);
 }
