@@ -6,7 +6,7 @@
 /*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:59:05 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/06/13 17:52:16 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/06/24 19:50:02 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ft_strlen(const char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] != '\0')
 	{
 		i++;
@@ -46,63 +48,15 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-void print_map(char **map)
+void	print_map(char **map)
 {
-    int i;
-	i = 0;
-    while (map[i])
-    {
-        printf("%s", map[i]);
-        i++;
-    }
-	printf("\n");
-	//free(map);
-}
-
-char	*ft_strdup(const char *s)
-{
-	char	*c;
-	int		i;
-	int		j;
+	int	i;
 
 	i = 0;
-	j = 0;
-	while (s[j])
-		j++;
-	c = malloc(j * sizeof(const char) + 1);
-	if (c == NULL)
-		return (NULL);
-	while (s[i])
+	while (map[i])
 	{
-		c[i] = s[i];
+		printf("%s", map[i]);
 		i++;
 	}
-	c[i] = '\0';
-	return (c);
-}
-void	quity(t_game *game, int j)
-{
-	int i;
-	
-	i = 0;
-	while (game->map[i])
-	{
-		free(game->map[i]);
-		i++;
-	}
-	free(game->map);
-	if(game->C)
-		free(game->C);
-	if(game->SO)
-		free(game->SO);
-	if(game->EA)
-		free(game->EA);
-	if(game->WE)
-		free(game->WE);
-	if(game->NO)
-		free(game->NO);
-	if(game->F)
-		free(game->F);
-	free(game);
-	exit(j);
+	printf("map afichee\n");
 }

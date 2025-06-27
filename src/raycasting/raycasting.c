@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:36:47 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/26 16:32:53 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/27 14:57:43 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,7 @@ int	ray_casting(t_game *game)
 		draw_vertical_line(x, line_height, game);
 		x++;
 	}
-	
 	// Dessiner la mini-map par-dessus
 	draw_minimap(game);
-	
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:17:46 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/17 16:37:37 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/27 15:50:06 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int handle_keypress(int keycode, t_game *game)
 {
     if(keycode == KEY_ESC)
     {
+        quity(game, 0, "echap\n\n\n");
         mlx_destroy_window(game->mlx_data.mlx, game->mlx_data.win);
         exit(0);
     }
@@ -62,6 +63,7 @@ int handle_keyrelease(int keycode, t_game *game)
 }
 int	handle_close(t_game *game)
 {
+    quity(game, 0, "cross press\n");
 	mlx_destroy_window(game->mlx_data.mlx, game->mlx_data.win);
 	exit(0);
 }

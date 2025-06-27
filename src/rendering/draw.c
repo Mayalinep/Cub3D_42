@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:53:34 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/26 16:32:53 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/27 16:02:48 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,10 @@ void	draw_minimap_walls(t_game *game)
 	offset_x = SCREEN_WIDTH - (game->parsed_data.map_width * scale) - 20;
 	offset_y = 20;
 	y = 0;
-	while (y < game->parsed_data.map_height)
+	while (y < game->parsed_data.map_height && game->parsed_data.map[y])
 	{
 		x = 0;
-		while (x < game->parsed_data.map_width)
+		while (x < game->parsed_data.map_width && game->parsed_data.map[y][x])
 		{
 			if (game->parsed_data.map[y][x] == '1')
 			{

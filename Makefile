@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+         #
+#    By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/26 00:00:00 by mpelage           #+#    #+#              #
-#    Updated: 2025/06/26 15:53:01 by mpelage          ###   ########.fr        #
+#    Updated: 2025/06/27 14:32:14 by ssoukoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,39 +17,33 @@ NAME = cub3D
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g3
 MATH_FLAGS = -lm
-INCLUDES = -I./include -I./minilibx-linux
+INCLUDES = -I./include -I./minilibx-linux -I./GNL -I./src
 
-# Chemins
+# Répertoires
 SRC_DIR = src
+GNL_DIR = GNL
 OBJ_DIR = obj
 MLX_DIR = minilibx-linux
 
-# Fichiers sources
-SRCS = main.c \
-	$(SRC_DIR)/input/keyboard_utils.c \
-	$(SRC_DIR)/input/movement.c \
-	$(SRC_DIR)/input/rotation.c \
-	$(SRC_DIR)/mlx/init_mlx.c \
-	$(SRC_DIR)/parsing/simulation.c \
-	$(SRC_DIR)/raycasting/dda.c \
-	$(SRC_DIR)/raycasting/raycasting_utils.c \
-	$(SRC_DIR)/raycasting/raycasting.c \
-	$(SRC_DIR)/rendering/draw.c \
-	$(SRC_DIR)/utils/string_utils.c
+# Détection automatique des fichiers sources
+SRC_FILES = $(wildcard $(SRC_DIR)/**/*.c) $(wildcard $(SRC_DIR)/*.c)
+	
+GNL_FILES = $(wildcard $(GNL_DIR)/*.c)
+ALL_SRCS = $(SRC_FILES) $(GNL_FILES)
 
-# Fichiers objets
-OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+# Génération des fichiers objets
+OBJS = $(patsubst %.c, $(OBJ_DIR)/%.o, $(ALL_SRCS))
 
 # Bibliothèques MinilibX
 MLX_LIB = $(MLX_DIR)/libmlx.a
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
-# Couleurs pour les messages
+# Couleurs
 GREEN = \033[0;32m
 RED = \033[0;31m
 BLUE = \033[0;34m
 YELLOW = \033[0;33m
-NC = \033[0m # No Color
+NC = \033[0m
 
 # Règle principale
 all: $(MLX_LIB) $(NAME)
@@ -57,7 +51,7 @@ all: $(MLX_LIB) $(NAME)
 # Compilation de l'exécutable
 $(NAME): $(OBJS)
 	@echo "$(BLUE)Linking $(NAME)...$(NC)"
-	@$(CC) $(OBJS) $(MLX_FLAGS) $(MATH_FLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(MLX_FLAGS) $(MATH_FLAGS) -o $(NAME)
 	@echo "$(GREEN)✓ $(NAME) compiled successfully!$(NC)"
 
 # Compilation des fichiers objets
@@ -69,7 +63,7 @@ $(OBJ_DIR)/%.o: %.c
 # Compilation de la MinilibX
 $(MLX_LIB):
 	@echo "$(BLUE)Compiling MinilibX...$(NC)"
-	@make -C $(MLX_DIR) > /dev/null 2>&1
+	@make -C $(MLX_DIR)
 	@echo "$(GREEN)✓ MinilibX compiled successfully!$(NC)"
 
 # Nettoyage des fichiers objets
@@ -88,11 +82,11 @@ fclean: clean
 # Recompilation complète
 re: fclean all
 
-# Tests et debug
+# Compilation avec debug (ASAN + UBSAN)
 debug: CFLAGS += -fsanitize=address -fsanitize=undefined
 debug: re
 
-# Règle pour lancer le programme avec une carte de test
+# Exécution de test
 test: $(NAME)
 	@if [ -f maps/test.cub ]; then \
 		echo "$(BLUE)Running $(NAME) with test map...$(NC)"; \
@@ -102,16 +96,15 @@ test: $(NAME)
 		./$(NAME); \
 	fi
 
-# Règles qui ne correspondent pas à des fichiers
-.PHONY: all clean fclean re debug test
+# Règles phony
+.PHONY: all clean fclean re debug test help
 
-# Règle d'aide
+# Aide
 help:
 	@echo "$(BLUE)Available targets:$(NC)"
 	@echo "  $(GREEN)all$(NC)     - Compile the project"
 	@echo "  $(GREEN)clean$(NC)   - Remove object files"
 	@echo "  $(GREEN)fclean$(NC)  - Remove object files and executable"
 	@echo "  $(GREEN)re$(NC)      - Recompile the project"
-	@echo "  $(GREEN)debug$(NC)   - Compile with debugging flags"
-	@echo "  $(GREEN)test$(NC)    - Run the program with test map"
-	@echo "  $(GREEN)help$(NC)    - Display this help message"
+	@echo "  $(GREEN)debug$(NC)   - Compile with debug flags"
+	@echo "  $(GREEN)test$(NC)    - Run with t
