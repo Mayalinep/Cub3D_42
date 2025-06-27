@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 17:01:47 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/27 19:16:43 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/27 19:32:07 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@ void	load_all_textures(t_game *game)
 		exit(1);
 	}
 	return;
+}
+
+int get_texture_pixel_optimized(int x, int y, char *tex_data, t_game *game)
+{
+	char *pixel_addr;
+	int tex_bpp, tex_line_length, tex_endian;
+	
+	// Récupérer les infos de la texture (pas de l'image principale)
+	mlx_get_data_addr(game->textures.north_img, &tex_bpp, &tex_line_length, &tex_endian);
+	
+	pixel_addr = tex_data + (y * tex_line_length + 
+		x * (tex_bpp / 8));
+	return (*(int*)pixel_addr);
 }
 
 int get_texture_pixel(void *texture, int x, int y, t_game *game)

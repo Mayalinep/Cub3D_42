@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 17:01:59 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/27 19:04:40 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/27 19:24:46 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ char				*ft_dup_ws(char *line, int i);
 // textures
 void load_all_textures(t_game *game);
 int get_texture_pixel(void *texture, int x, int y, t_game *game);
+int get_texture_pixel_optimized(int x, int y, char *tex_data, t_game *game);
 void *get_wall_texture(t_game *game);
 void draw_vertical_line_texture(int x, int line_height, t_game *game);
 

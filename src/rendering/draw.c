@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:53:34 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/27 19:04:13 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/27 19:31:51 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	draw_vertical_line_texture(int x, int line_height, t_game *game)
 	int tex_y;
 	void *texture;
 	int color;
+	char *tex_data;
+	int tex_bpp, tex_line_length, tex_endian;
 	
 	draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
 	draw_end = line_height / 2 + SCREEN_HEIGHT / 2;
@@ -40,13 +42,20 @@ void	draw_vertical_line_texture(int x, int line_height, t_game *game)
 	if (draw_end >= SCREEN_HEIGHT) draw_end = SCREEN_HEIGHT - 1;
 	
 	texture = get_wall_texture(game);
+	tex_data = mlx_get_data_addr(texture, &tex_bpp, &tex_line_length, &tex_endian);
+	
 	tex_x = (int)(game->raycasting.wall_x * game->textures.width);
+	if (tex_x < 0) tex_x = 0;
+	if (tex_x >= game->textures.width) tex_x = game->textures.width - 1;
 	
 	y = draw_start;
 	while (y <= draw_end)
 	{
 		tex_y = (y - draw_start) * game->textures.height / line_height;
-		color = get_texture_pixel(texture, tex_x, tex_y, game);
+		if (tex_y < 0) tex_y = 0;
+		if (tex_y >= game->textures.height) tex_y = game->textures.height - 1;
+		
+		color = get_texture_pixel_optimized(tex_x, tex_y, tex_data, game);
 		put_pixel(x, y, color, game);
 		y++;
 	}
