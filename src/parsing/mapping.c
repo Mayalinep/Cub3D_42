@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 19:31:38 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/06/27 15:21:25 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:17:02 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,14 @@ int	look_one(char *line, t_game *game)
 char	*ft_dup_ws(char *line, int i)
 {
 	char	*str;
+	int		len;
 
 	while (line[i] != '.' && line[i] && ft_isdigit(line[i]) == 0)
 		i++;
 	str = ft_strdup(line + i);
+	len = ft_strlen(str);
+	if (len > 0 && str[len - 1] == '\n')
+		str[len - 1] = '\0';
 	free(line);
 	return (str);
 }

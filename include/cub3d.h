@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/27 17:01:59 by mpelage           #+#    #+#             */
+/*   Updated: 2025/06/27 19:04:40 by mpelage          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -107,10 +119,10 @@ typedef struct s_raycasting
 
 typedef struct s_textures
 {
-	int				*north_texture;
-	int				*south_texture;
-	int				*west_texture;
-	int				*east_texture;
+	void    *north_img;    // Image XPM chargée
+    void    *south_img;    // Image XPM chargée  
+    void    *west_img;     // Image XPM chargée
+    void    *east_img;     // Image XPM chargée
 	int				width;
 	int				height;
 }					t_textures;
@@ -186,4 +198,16 @@ void				get_map(int file, t_game *game);
 void				get_map_p2(t_game *game, int i);
 int					add_line(t_game *game, char *line, int i);
 char				*ft_dup_ws(char *line, int i);
+
+// textures
+void load_all_textures(t_game *game);
+int get_texture_pixel(void *texture, int x, int y, t_game *game);
+void *get_wall_texture(t_game *game);
+void draw_vertical_line_texture(int x, int line_height, t_game *game);
+
+// Ajoutez ces prototypes
+void free_map(t_game *game);
+void free_textures(t_game *game);
+void free_mlx(t_game *game);
+
 #endif

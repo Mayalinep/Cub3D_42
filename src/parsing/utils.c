@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:59:05 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/06/24 19:50:02 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:07:57 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,9 @@ void	print_map(char **map)
 		i++;
 	}
 	printf("map afichee\n");
+}
+void ft_putstr_fd(char *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
+	return;
 }

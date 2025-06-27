@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:36:47 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/27 14:57:43 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/06/27 18:37:48 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ray_casting(t_game *game)
 		calculate_ray_direction(x, game, &ray_dir_x, &ray_dir_y);
 		distance = find_wall_distance(ray_dir_x, ray_dir_y, game);
 		line_height = calculate_line_height(distance);
-		draw_vertical_line(x, line_height, game);
+		draw_vertical_line_texture(x, line_height, game);
 		x++;
 	}
 	// Dessiner la mini-map par-dessus

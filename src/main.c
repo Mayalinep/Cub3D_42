@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:22:30 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/27 15:24:00 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/06/27 18:42:45 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ int	main(int ac, char **av)
 		printf("Erreur lors de l'initialisation de la minilibx\n");
 		return (1);
 	}
-	
 	printf("MLX initialisé avec succès\n");
-	
+	load_all_textures(&game);
 	mlx_hook(game.mlx_data.win, 2, 1L << 0, handle_keypress, &game);
 	mlx_hook(game.mlx_data.win, 3, 1L << 1, handle_keyrelease, &game);
 	mlx_hook(game.mlx_data.win, 17, 1L << 17, handle_close, &game);

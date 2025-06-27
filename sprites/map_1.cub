@@ -1,7 +1,7 @@
-NO  ./spites/terre.xpm
-S ./spites/sinje.xpm
-WE ./spites/mur.xpm
-EA ./spites/banana.xpm
+NO  ./sprites/terre.xpm
+SO ./sprites/sinje.xpm
+WE ./sprites/murs.xpm
+EA ./sprites/banana.xpm
 F 255,255,255
 C 255,255,0
 
