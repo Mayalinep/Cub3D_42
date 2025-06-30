@@ -1,0 +1,32 @@
+
+
+SO ./tiles/south.xpm 
+
+WE ./tiles/exit.xpm
+
+EA ./tiles/east.xpm
+
+NO    ./tiles/north.xpm   
+
+
+
+ C  198 ,147     ,                                                                                6
+
+ F 100 , 100 ,    100
+
+
+
+      1
+     101
+   1100011
+ 1100000E011
+1100000000011
+ 11000000011
+   1100011
+     101
+      1 
+
+
+
+
+

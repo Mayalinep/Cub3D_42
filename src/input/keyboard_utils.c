@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:17:46 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/17 16:37:37 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/30 12:54:44 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int init_keys(t_keys *keys)
 
 int handle_keypress(int keycode, t_game *game)
 {
-    if(keycode == KEY_ESC)
+    if (keycode == KEY_ESC)
     {
-        mlx_destroy_window(game->mlx_data.mlx, game->mlx_data.win);
+        cleanup_game(game);
         exit(0);
     }
     if (keycode == KEY_W)
@@ -44,6 +44,7 @@ int handle_keypress(int keycode, t_game *game)
         game->keys.r_press = 1;
     return (0);
 }
+
 int handle_keyrelease(int keycode, t_game *game)
 {
     if (keycode == KEY_W)
@@ -60,8 +61,9 @@ int handle_keyrelease(int keycode, t_game *game)
         game->keys.r_press = 0;
     return (0);
 }
+
 int	handle_close(t_game *game)
 {
-	mlx_destroy_window(game->mlx_data.mlx, game->mlx_data.win);
+	cleanup_game(game);
 	exit(0);
 }

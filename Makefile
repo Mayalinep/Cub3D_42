@@ -6,7 +6,7 @@
 #    By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/26 00:00:00 by mpelage           #+#    #+#              #
-#    Updated: 2025/06/26 15:53:01 by mpelage          ###   ########.fr        #
+#    Updated: 2025/06/30 12:54:44 by mpelage          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS = main.c \
 	$(SRC_DIR)/raycasting/raycasting_utils.c \
 	$(SRC_DIR)/raycasting/raycasting.c \
 	$(SRC_DIR)/rendering/draw.c \
+	$(SRC_DIR)/rendering/textures.c \
 	$(SRC_DIR)/utils/string_utils.c
 
 # Fichiers objets

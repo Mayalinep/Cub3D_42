@@ -18,6 +18,12 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
+// Définitions des directions des textures (inspiré du code de référence)
+#define NORTH 0
+#define EAST 1
+#define SOUTH 2
+#define WEST 3
+
 // Définitions des couleurs des murs
 #define WALL_NORTH_COLOR 0x404040  // Gris foncé
 #define WALL_SOUTH_COLOR 0x606060  // Gris moyen
@@ -94,15 +100,21 @@ typedef struct s_raycasting
 	double wall_x; // position X sur le mur pour les textures 
 } t_raycasting;
 
+// Structure pour les images (inspirée du code de référence)
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
+
 typedef struct s_textures
 {
-	int *north_texture;
-	int *south_texture;
-	int *west_texture;
-	int *east_texture;
-	int width;
-	int height;
-} t_textures;
+	t_img	tex[4];  // [0] = NORTH, [1] = EAST, [2] = SOUTH, [3] = WEST
+	int		loaded; // 1 si les textures sont chargées, 0 sinon
+}	t_textures;
 
 typedef struct s_game
 {
@@ -145,5 +157,14 @@ void calculate_wall_x(double ray_dir_x, double ray_dir_y, double distance, t_gam
 
 // Fonctions utilitaires
 char *ft_strdup(const char *s);
+void cleanup_parsed_data(t_parsed_data *data);
+void cleanup_game(t_game *game);
+void init_textures(t_textures *textures);
+
+// Fonctions de gestion des textures
+int load_texture(void *mlx, t_img *texture, char *path);
+int load_all_textures(t_game *game);
+int get_texture_pixel(t_img *texture, int x, int y);
+void cleanup_textures(t_game *game);
 
 #endif

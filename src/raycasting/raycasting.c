@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:36:47 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/26 16:32:53 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/30 14:18:10 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ int	calculate_line_height(double distance)
 	int	line_height;
 
 	if (distance <= 0)
-		return (SCREEN_HEIGHT);
+		distance = 0.001;
 	line_height = (int)(SCREEN_HEIGHT / distance);
-	if (line_height > SCREEN_HEIGHT)
-		line_height = SCREEN_HEIGHT;
 	return (line_height);
 }
 
@@ -75,10 +73,7 @@ int	ray_casting(t_game *game)
 
 	if (!game)
 		return (-1);
-	
-	// Dessiner le sol et le ciel en premier
 	draw_floor_and_ceiling(game);
-	
 	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
@@ -88,9 +83,6 @@ int	ray_casting(t_game *game)
 		draw_vertical_line(x, line_height, game);
 		x++;
 	}
-	
-	// Dessiner la mini-map par-dessus
 	draw_minimap(game);
-	
 	return (0);
 }
