@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 12:37:15 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/30 12:39:16 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/30 15:09:20 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	load_texture(void *mlx, t_img *texture, char *path)
 	int	width;
 	int	height;
 
+	printf("Debug: Tentative de chargement de la texture: '%s'\n", path);
 	texture->img = mlx_xpm_file_to_image(mlx, path, &width, &height);
 	if (!texture->img)
 	{
@@ -33,6 +34,7 @@ int	load_texture(void *mlx, t_img *texture, char *path)
 		mlx_destroy_image(mlx, texture->img);
 		return (0);
 	}
+	printf("Debug: Texture '%s' chargée avec succès\n", path);
 	return (1);
 }
 

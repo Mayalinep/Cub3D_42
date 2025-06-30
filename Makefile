@@ -6,7 +6,7 @@
 #    By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/26 00:00:00 by mpelage           #+#    #+#              #
-#    Updated: 2025/06/30 12:54:44 by mpelage          ###   ########.fr        #
+#    Updated: 2025/06/30 15:04:51 by mpelage          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,12 +31,22 @@ SRCS = main.c \
 	$(SRC_DIR)/input/rotation.c \
 	$(SRC_DIR)/mlx/init_mlx.c \
 	$(SRC_DIR)/parsing/simulation.c \
+	$(SRC_DIR)/parsing/init.c \
+	$(SRC_DIR)/parsing/verif.c \
+	$(SRC_DIR)/parsing/mapping.c \
+	$(SRC_DIR)/parsing/look.c \
+	$(SRC_DIR)/parsing/utils.c \
+	$(SRC_DIR)/parsing/utils_two.c \
+	$(SRC_DIR)/parsing/utils_three.c \
+	$(SRC_DIR)/parsing/utils_four.c \
 	$(SRC_DIR)/raycasting/dda.c \
 	$(SRC_DIR)/raycasting/raycasting_utils.c \
 	$(SRC_DIR)/raycasting/raycasting.c \
 	$(SRC_DIR)/rendering/draw.c \
 	$(SRC_DIR)/rendering/textures.c \
-	$(SRC_DIR)/utils/string_utils.c
+	$(SRC_DIR)/utils/string_utils.c \
+	GNL/get_next_line.c \
+	GNL/get_next_line_utils.c
 
 # Fichiers objets
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)

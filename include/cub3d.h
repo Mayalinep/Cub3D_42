@@ -2,10 +2,12 @@
 #define CUB3D_H
 
 #include "mlx.h"
+#include "get_next_line.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <fcntl.h>
 
 // Définitions des touches du clavier
 #define KEY_W 119 //touche w, pour avancer
@@ -29,6 +31,9 @@
 #define WALL_SOUTH_COLOR 0x606060  // Gris moyen
 #define WALL_EAST_COLOR  0x808080  // Gris clair
 #define WALL_WEST_COLOR  0x505050  // Gris intermédiaire
+
+// Définition pour le parsing
+#define MAX_MAP_LINES 100
 
 typedef struct s_mlx_data
 {
@@ -58,6 +63,10 @@ typedef struct s_parsed_data
     int map_height;
     int map_width;
     char **map;
+    
+    // Ajouts pour le parsing
+    int file;    // file descriptor
+    int p_num;   // nombre de joueurs trouvés
     
     // Position et orientation du joueur
     double  player_x;
@@ -160,6 +169,33 @@ char *ft_strdup(const char *s);
 void cleanup_parsed_data(t_parsed_data *data);
 void cleanup_game(t_game *game);
 void init_textures(t_textures *textures);
+
+// Nouvelles fonctions de parsing
+void init_game(t_game *game, int ac, char **av);
+int verif_part_one(int ac, char **av, t_game *game);
+void verif_part_two(t_game *game);
+int look_one(char *line, t_game *game);
+int look_side(char **map, int i, int j, t_game *game);
+void get_map(int file, t_game *game);
+int add_line(t_game *game, char *line, int i);
+char *ft_dup_ws(char *line, int i);
+void set_floor_cell(char *line, t_game *game, char c);
+
+// Nouvelles fonctions utilitaires manquantes
+int ft_strlen(const char *str);
+int ft_strncmp(const char *s1, const char *s2, size_t n);
+int ft_isdigit(int c);
+char **ft_split(char const *s, char c);
+void *ft_calloc(size_t nmemb, size_t size);
+char *ft_substr(char const *s, unsigned int start, size_t len);
+long atol(const char *str);
+void print_map(char **map);
+void print_all(t_game *game);
+
+// Fonctions de nettoyage adaptées à ta structure
+void quity(t_game *game, int j, char *str);
+void free_map(t_game *game);
+void free_mlx(t_game *game);
 
 // Fonctions de gestion des textures
 int load_texture(void *mlx, t_img *texture, char *path);
