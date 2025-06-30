@@ -6,21 +6,67 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:27:42 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/26 16:48:49 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/30 14:31:28 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
+
+// Vérifie si une position est trop proche d'un mur
+int	is_too_close_to_wall(double x, double y, t_parsed_data *data, double margin)
+{
+	int		check_x;
+	int		check_y;
+	int		map_x;
+	int		map_y;
+	
+	// Vérifier un carré autour du joueur
+	check_y = -1;
+	while (check_y <= 1)
+	{
+		check_x = -1;
+		while (check_x <= 1)
+		{
+			// Position à vérifier
+			map_x = (int)(x + check_x * margin);
+			map_y = (int)(y + check_y * margin);
+			
+			// Vérifier les limites
+			if (map_x < 0 || map_x >= data->map_width || 
+				map_y < 0 || map_y >= data->map_height)
+				return (1);
+			
+			// Si c'est un mur, on est trop proche
+			if (data->map[map_y][map_x] == '1')
+				return (1);
+			
+			check_x++;
+		}
+		check_y++;
+	}
+	return (0);
+}
 
 int	wall_collision(double new_x, double new_y, t_parsed_data *data)
 {
-	// Vérification des limites de la map
-	if ((int)new_y < 0 || (int)new_y >= data->map_height || (int)new_x < 0
-		|| (int)new_x >= data->map_width)
+	double	margin;
+	
+	margin = 0.3; // Distance minimale aux murs (augmentée à 0.3)
+	
+	// Vérification des limites de la map avec marge
+	if (new_y < margin || new_y >= data->map_height - margin || 
+		new_x < margin || new_x >= data->map_width - margin)
 		return (1);
+	
 	// Vérification de collision avec un mur
 	if (data->map[(int)new_y][(int)new_x] == '1')
 		return (1);
+	
+	// Vérifier si on est trop proche d'un mur
+	if (is_too_close_to_wall(new_x, new_y, data, margin))
+		return (1);
+	
 	return (0);
 }
 

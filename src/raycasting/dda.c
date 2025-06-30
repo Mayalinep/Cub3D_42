@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 09:36:35 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/26 15:08:19 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/30 14:31:29 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,12 @@ double	calculate_final_distance(double ray_dir_x, double ray_dir_y,
 	else
 		distance = (game->raycasting.map_y - game->parsed_data.player_y + (1
 					- game->raycasting.step_y) / 2) / ray_dir_y;
+	
+	// S'assurer que la distance est positive et pas trop petite
+	if (distance < 0)
+		distance = -distance;
+	if (distance < 0.3)
+		distance = 0.3;
+	
 	return (distance);
 }

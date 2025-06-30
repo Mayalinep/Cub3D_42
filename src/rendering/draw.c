@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:53:34 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/27 19:31:51 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/30 14:31:29 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,39 @@ void	draw_vertical_line_texture(int x, int line_height, t_game *game)
 	int color;
 	char *tex_data;
 	int tex_bpp, tex_line_length, tex_endian;
+	double step;
+	double tex_pos;
 	
+	// Calcul des positions de dessin
 	draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
 	draw_end = line_height / 2 + SCREEN_HEIGHT / 2;
-	if (draw_start < 0) draw_start = 0;
-	if (draw_end >= SCREEN_HEIGHT) draw_end = SCREEN_HEIGHT - 1;
+	
+	// Calcul du step pour la texture (64 est la taille de la texture)
+	step = 64.0 / line_height;
+	
+	// Limiter draw_start AVANT de calculer tex_pos (très important!)
+	if (draw_start < 0) 
+		draw_start = 0;
+	if (draw_end >= SCREEN_HEIGHT) 
+		draw_end = SCREEN_HEIGHT - 1;
+	
+	// Calculer tex_pos avec draw_start déjà limité
+	tex_pos = (draw_start - SCREEN_HEIGHT / 2 + line_height / 2) * step;
 	
 	texture = get_wall_texture(game);
 	tex_data = mlx_get_data_addr(texture, &tex_bpp, &tex_line_length, &tex_endian);
 	
-	tex_x = (int)(game->raycasting.wall_x * game->textures.width);
-	if (tex_x < 0) tex_x = 0;
-	if (tex_x >= game->textures.width) tex_x = game->textures.width - 1;
+	tex_x = (int)(game->raycasting.wall_x * 64);
+	if (tex_x < 0) 
+		tex_x = 0;
+	if (tex_x >= 64)
+		tex_x = 63;
 	
 	y = draw_start;
 	while (y <= draw_end)
 	{
-		tex_y = (y - draw_start) * game->textures.height / line_height;
-		if (tex_y < 0) tex_y = 0;
-		if (tex_y >= game->textures.height) tex_y = game->textures.height - 1;
+		tex_y = (int)tex_pos & 63;
+		tex_pos += step;
 		
 		color = get_texture_pixel_optimized(tex_x, tex_y, tex_data, game);
 		put_pixel(x, y, color, game);

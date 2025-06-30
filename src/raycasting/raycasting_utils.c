@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:03:33 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/26 15:08:11 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/30 14:31:29 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	calculate_wall_x(double ray_dir_x, double ray_dir_y, double distance,
 {
 	double wall_x;
 
-	if (game->raycasting.side == 0) // Mur vertical
-		wall_x = game->parsed_data.player_y + distance * ray_dir_y;
-	else // Mur horizontal
+	if (game->raycasting.side == 1) // Mur horizontal (Nord/Sud)
 		wall_x = game->parsed_data.player_x + distance * ray_dir_x;
+	else // Mur vertical (Est/Ouest)
+		wall_x = game->parsed_data.player_y + distance * ray_dir_y;
 
 	wall_x -= floor(wall_x);
 	game->raycasting.wall_x = wall_x;
