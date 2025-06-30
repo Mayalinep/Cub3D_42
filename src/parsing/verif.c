@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:14:24 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/06/27 15:56:45 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:22:08 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,9 @@ void	set_zero(t_game *game)
 	int	i;
 
 	i = 0;
-	// game->parsed_data = malloc(sizeof(t_parsed_data));
-	// if (!game->parsed_data)
-	// {
-	// 	exit(EXIT_FAILURE);
-	// }
 	game->parsed_data.p_num = 0;
+	game->parsed_data.map_width = 0;
+	game->parsed_data.map_height = 0;
 	game->parsed_data.ceiling_r = -1;
 	game->parsed_data.ceiling_g = -1;
 	game->parsed_data.ceiling_b = -1;
@@ -111,11 +108,9 @@ void	set_zero(t_game *game)
 	game->parsed_data.floor_g = -1;
 	game->parsed_data.floor_b = -1;
 	game->parsed_data.texture_south = NULL;
-	// game->parsed_data.F = NULL;
 	game->parsed_data.texture_north = NULL;
 	game->parsed_data.texture_west = NULL;
 	game->parsed_data.texture_east = NULL;
-	// game->parsed_data.file = NULL;
 	game->parsed_data.map = malloc(sizeof(char *) * MAX_MAP_LINES);
 	if (!game->parsed_data.map)
 		exit(-2);

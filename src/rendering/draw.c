@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:53:34 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/30 14:20:16 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/06/30 16:24:10 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ void	draw_minimap_walls(t_game *game)
 	int	scale;
 	int	offset_x;
 	int	offset_y;
+	int	line_len;
 
 	scale = 8;
 	offset_x = SCREEN_WIDTH - (game->parsed_data.map_width * scale) - 20;
@@ -222,20 +223,24 @@ void	draw_minimap_walls(t_game *game)
 	y = 0;
 	while (y < game->parsed_data.map_height)
 	{
-		x = 0;
-		while (x < game->parsed_data.map_width)
+		if (game->parsed_data.map[y])
 		{
-			if (game->parsed_data.map[y][x] == '1')
+			line_len = ft_strlen(game->parsed_data.map[y]);
+			x = 0;
+			while (x < game->parsed_data.map_width)
 			{
-				draw_minimap_square(x, y, scale, offset_x, offset_y, 
-					0x404040, game);
+				if (x < line_len && game->parsed_data.map[y][x] == '1')
+				{
+					draw_minimap_square(x, y, scale, offset_x, offset_y, 
+						0x404040, game);
+				}
+				else
+				{
+					draw_minimap_square(x, y, scale, offset_x, offset_y, 
+						0x202020, game);
+				}
+				x++;
 			}
-			else
-			{
-				draw_minimap_square(x, y, scale, offset_x, offset_y, 
-					0x202020, game);
-			}
-			x++;
 		}
 		y++;
 	}
