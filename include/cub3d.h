@@ -19,6 +19,7 @@
 #define KEY_ESC 65307 //touche esc, pour quitter le jeu
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+#define SENSITIVITY 0.002
 
 // Définitions des directions des textures (inspiré du code de référence)
 #define NORTH 0
@@ -134,13 +135,6 @@ typedef struct s_game
 	t_textures textures;
 } t_game;
 
-// Prototypes des fonctions de simulation
-int simulate_parsing(t_parsed_data *data);
-int init_test_map(t_parsed_data *data);
-int init_test_player(t_parsed_data *data);
-int init_test_textures(t_parsed_data *data);
-int init_test_colors(t_parsed_data *data);
-
 // Fonctions MLX et input
 int init_mlx(t_mlx_data *mlx_data);
 int init_keys(t_keys *keys);
@@ -150,6 +144,7 @@ int handle_close(t_game *game);
 int wall_collision(double new_x, double new_y, t_parsed_data *data);
 int try_move(t_game *game, double dir_x, double dir_y);
 int keypress_rotation(int keycode, t_game *game);
+void rotate_player(double angle, t_game *game);
 int update_player(t_game *game);
 
 // Fonctions raycasting
@@ -202,5 +197,16 @@ int load_texture(void *mlx, t_img *texture, char *path);
 int load_all_textures(t_game *game);
 int get_texture_pixel(t_img *texture, int x, int y);
 void cleanup_textures(t_game *game);
+
+// Fonctions bonus (compilées seulement si BONUS_FEATURES=1)
+int mouse_rotation(int x, int y, void *param);
+void init_mouse_events(t_game *game);
+void update_animated_sprites(t_game *game);
+void draw_animated_sprites(t_game *game);
+void init_animated_sprites(t_game *game);
+void check_door_interaction(t_game *game);
+void toggle_door(t_game *game, int x, int y);
+void init_doors(t_game *game);
+void put_pixel(int x, int y, int color, t_game *game);
 
 #endif

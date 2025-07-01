@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:53:34 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/30 16:27:42 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/01 17:55:59 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,105 +196,6 @@ void	draw_floor_and_ceiling(t_game *game)
 			draw_horizontal_line(0, SCREEN_WIDTH - 1, y, ceiling_color, game);
 		else
 			draw_horizontal_line(0, SCREEN_WIDTH - 1, y, floor_color, game);
-		y++;
-	}
-}
-
-// Fonction pour dessiner la mini-map
-void	draw_minimap(t_game *game)
-{
-	draw_minimap_walls(game);
-	draw_minimap_player(game);
-}
-
-// Fonction pour dessiner les murs de la mini-map
-void	draw_minimap_walls(t_game *game)
-{
-	int	x;
-	int	y;
-	int	scale;
-	int	offset_x;
-	int	offset_y;
-	int	line_len;
-
-	scale = 8;
-	offset_x = SCREEN_WIDTH - (game->parsed_data.map_width * scale) - 20;
-	offset_y = 20;
-	y = 0;
-	while (y < game->parsed_data.map_height)
-	{
-		if (game->parsed_data.map[y])
-		{
-			line_len = ft_strlen(game->parsed_data.map[y]);
-			x = 0;
-			while (x < game->parsed_data.map_width)
-			{
-				if (x < line_len && game->parsed_data.map[y][x] == '1')
-				{
-					draw_minimap_square(x, y, scale, offset_x, offset_y, 
-						0x404040, game);
-				}
-				else
-				{
-					draw_minimap_square(x, y, scale, offset_x, offset_y, 
-						0x202020, game);
-				}
-				x++;
-			}
-		}
-		y++;
-	}
-}
-
-// Fonction pour dessiner un carré dans la mini-map
-void	draw_minimap_square(int map_x, int map_y, int scale, int offset_x, 
-		int offset_y, int color, t_game *game)
-{
-	int	x;
-	int	y;
-	int	screen_x;
-	int	screen_y;
-
-	screen_x = map_x * scale + offset_x;
-	screen_y = map_y * scale + offset_y;
-	y = 0;
-	while (y < scale)
-	{
-		x = 0;
-		while (x < scale)
-		{
-			put_pixel(screen_x + x, screen_y + y, color, game);
-			x++;
-		}
-		y++;
-	}
-}
-
-// Fonction pour dessiner le joueur sur la mini-map
-void	draw_minimap_player(t_game *game)
-{
-	int	scale;
-	int	offset_x;
-	int	offset_y;
-	int	player_x;
-	int	player_y;
-	int	x;
-	int	y;
-
-	scale = 8;
-	offset_x = SCREEN_WIDTH - (game->parsed_data.map_width * scale) - 20;
-	offset_y = 20;
-	player_x = (int)(game->parsed_data.player_x * scale) + offset_x;
-	player_y = (int)(game->parsed_data.player_y * scale) + offset_y;
-	y = -2;
-	while (y <= 2)
-	{
-		x = -2;
-		while (x <= 2)
-		{
-			put_pixel(player_x + x, player_y + y, 0xFF0000, game);
-			x++;
-		}
 		y++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:28:53 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/26 16:48:51 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/01 16:27:30 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	keypress_rotation(int keycode, t_game *game)
 	old_dir_y = game->parsed_data.dir_y;
 	old_plane_x = game->parsed_data.plane_x;
 	if (keycode == KEY_LEFT)
-        angle = -0.05;
+        angle = -0.02;
     else if (keycode == KEY_RIGHT)
-        angle = 0.05;
+        angle = 0.02;
     else
         return (0);
     game->parsed_data.dir_x = old_dir_x * cos(angle) - old_dir_y * sin(angle);

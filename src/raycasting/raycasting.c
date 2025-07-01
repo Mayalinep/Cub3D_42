@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:36:47 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/30 14:20:16 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/01 17:54:06 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ int	ray_casting(t_game *game)
 		draw_vertical_line(x, line_height, game);
 		x++;
 	}
-	draw_minimap(game);
+	// draw_minimap(game); // Bonus feature - commenté pour version normale
 	return (0);
 }
