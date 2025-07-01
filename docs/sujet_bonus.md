@@ -10,8 +10,8 @@ totalement ignorée.
 
 
 Liste des bonus :
-• Collision contre les murs
-• Un système de minicarte.
+• Collision contre les murs ✅
+• Un système de minicarte. ✅
 • Porte qui peuvent être ouvertes/fermées.
 • Animations (des sprites animés).
 • Faites pivoter le point de vue avec la souris.
