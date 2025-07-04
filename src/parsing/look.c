@@ -6,7 +6,7 @@
 /*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 19:27:15 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/06/27 15:20:41 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:08:25 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ int	look_side(char **map, int i, int j, t_game *game)
 		quity(game, 2, "map invalide");
 	if ((int)ft_strlen(map[j]) <= i + 1 || i <= 0)
 		quity(game, 2, "map invalide");
-	if (map[j + 1][i] != '0' && map[j + 1][i] != '1' && map[j + 1][i] != 'N')
+	if (map[j + 1][i] != '0' && map[j + 1][i] != '1' && map[j + 1][i] != 'N' && map[j + 1][i] != ' ')
 		quity(game, 2, "map invalide");
-	if (map[j - 1][i] != '0' && map[j - 1][i] != '1' && map[j - 1][i] != 'N')
+	if (map[j - 1][i] != '0' && map[j - 1][i] != '1' && map[j - 1][i] != 'N' && map[j - 1][i] != ' ')
 		quity(game, 2, "map invalide");
 	if ((int)ft_strlen(map[j]) <= i + 1)
 		quity(game, 2, "map invalide");
-	if (map[j][i + 1] != '0' && map[j][i + 1] != '1' && map[j][i + 1] != 'N')
+	if (map[j][i + 1] != '0' && map[j][i + 1] != '1' && map[j][i + 1] != 'N' && map[j][i + 1] != ' ')
 		quity(game, 2, "map invalide");
 	if (i >= (int)ft_strlen(map[j]) || i <= 0)
 		quity(game, 2, "map invalide");
-	if (map[j][i - 1] != '0' && map[j][i - 1] != '1' && map[j][i - 1] != 'N')
+	if (map[j][i - 1] != '0' && map[j][i - 1] != '1' && map[j][i - 1] != 'N' && map[j][i - 1] != ' ')
 		quity(game, 2, "map invalide");
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:14:24 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/06/30 16:27:42 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:15:25 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,44 @@ void	set_pos(int i, int j, t_game *game)
 	
 }
 
-int	player_or_sp(char c, t_game *game, int i, int j)
+int	check_move(int i, int j, t_game *game)
+{
+	char **map;
+	int fl;
+	
+	map = game->parsed_data.map;
+	fl = 0;
+	if (!map || !map[i] || i < 1 || j < 1)
+		return (-1);
+	if (!map[i + 1] || !map[i - 1])
+		quity(game, -1, "Invalid map: missing lines");
+	if ((int)ft_strlen(map[i - 1]) <= j + 1 || (int)ft_strlen(map[i + 1]) <= j + 1)
+		quity(game, -1, "Invalid map: line too short");
+	if ((int)ft_strlen(map[i]) <= j + 1 || j <= 0)
+		quity(game, -1, "Invalid map: index out of bounds");
 
-{	
+	if (map[i][j - 1] == '1' || map[i][j + 1] == '1')
+		fl++;
+	if (map[i - 1][j - 1] == '1' || map[i - 1][j] == '1' || map[i - 1][j + 1] == '1')
+		fl++;
+	if (map[i + 1][j - 1] == '1' || map[i + 1][j] == '1' || map[i + 1][j + 1] == '1')
+		fl++;
+	return (fl);
+}
+
+
+int	player_or_sp(char c, t_game *game, int i, int j)
+{
+	if (c == ' ')
+		look_side(game->parsed_data.map, i, j, game);
+	else if (c != 'S' && c != 'E' && c != 'N' && c != 'W' && c != '0' && c != '1' && c != '\n')
+		quity(game, -1, "char invalide");
 	if (c == 'S' || c == 'E' || c == 'N' || c == 'W')
 	{
 		game->parsed_data.p_num++;
 		set_pos(i, j, game);
+		if (check_move(i, j, game))
+			quity(game, -1, "peut pas bouger");
 		return (1);
 	}
 	if (c == '0')

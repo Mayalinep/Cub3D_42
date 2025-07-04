@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 19:31:38 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/06/30 15:15:04 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 14:46:27 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,33 +53,95 @@ int	add_line(t_game *game, char *line, int i)
 	return (1);
 }
 
-void	set_floor_cell(char *line, t_game *game, char c)
+int	color_assignation(t_game *game, char **tab, char *c)
 {
-	char	**tab;
-	int		i;
-
-	if (!line)
-		return ;
-	i = 0;
-	tab = ft_split(line, ',');
-	if (c == 'F')
+	if (c[0] == 'F')
 	{
 		game->parsed_data.floor_r = atol(tab[0]);
 		game->parsed_data.floor_g = atol(tab[1]);
 		game->parsed_data.floor_b = atol(tab[2]);
+		if (game->parsed_data.floor_b > 255 || game->parsed_data.floor_g > 255 || game->parsed_data.floor_r > 255)
+			return (1);
 	}
-	if (c == 'C')
+	if (c[0] == 'C')
 	{
 		game->parsed_data.ceiling_r = atol(tab[0]);
 		game->parsed_data.ceiling_g = atol(tab[1]);
 		game->parsed_data.ceiling_b = atol(tab[2]);
+		if (game->parsed_data.ceiling_b > 255 || game->parsed_data.ceiling_g > 255 || game->parsed_data.ceiling_r > 255)
+			return (1);
 	}
+	return (0);
+}
+
+char **sp_and_trimm(char *line, t_game *game, char **tab, char *c)
+{
+	char	*res;
+
+	tab = ft_split(line, ',');
+	if (!tab || !tab[0] || !tab[1] || !tab[2] || tab[3])
+		(free(line),free_tab(tab),quity(game, -1, "Color problem"));
+
+	res = ft_strtrim(tab[0], c);
+	free(tab[0]);
+	tab[0] = res;
+	if (!tab[0])
+		(free(line), free_tab(tab), quity(game, -1, "Memory allocation failed (strtrim)"));
+	return (tab);
+	
+}
+
+int	look_zero(char **tab)
+{
+	int i;
+
+	i = 0;
 	while (tab[i])
 	{
-		free(tab[i]);
+		if (tab[i][0] == '0' && ft_isdigit(tab[i][1]))
+			return(1);
 		i++;
 	}
-	(free(line), free(tab));
+	return (0);
+}
+void	set_floor_cell(char *line, t_game *game, char *c)
+{
+	char	**tab;
+	int		i;
+	int		j;
+
+	if (!line)
+		return ;
+	tab = NULL;
+	tab = sp_and_trimm(line, game, tab, c);
+	i = 0;
+	while (tab[i])
+	{
+		j = 0;
+		while (tab[i][j])
+		{
+			if (look_zero(tab))
+				(free(line), free_tab(tab), quity(game, -1, "les 0 mgl"));
+			if (!ft_isdigit(tab[i][j]) && tab[i][j] != '\n')
+				(free(line), free_tab(tab), quity(game, -1, "Color format error: non-digit found"));
+			j++;
+		}
+		i++;
+	}
+	if (color_assignation(game, tab, c) == 1)
+		(free(line), free_tab(tab), quity(game, -1, "Color number error"));
+	(free(line), free_tab(tab));
+}
+
+
+void	free_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
 }
 
 int	look_one(char *line, t_game *game)
@@ -93,9 +155,9 @@ int	look_one(char *line, t_game *game)
 	if (ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "E ", 2) == 0)
 		return (game->parsed_data.texture_east = ft_dup_ws(line, 2), 0);
 	if (ft_strncmp(line, "F ", 2) == 0)
-		return (set_floor_cell(line, game, 'F'), 0);
+		return (set_floor_cell(line, game, "F "), 0);
 	if (ft_strncmp(line, "C ", 2) == 0)
-		return (set_floor_cell(line, game, 'C'), 0);
+		return (set_floor_cell(line, game, "C "), 0);
 	return (1);
 }
 

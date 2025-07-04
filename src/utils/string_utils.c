@@ -45,6 +45,7 @@ char *ft_strdup(const char *s)
 // Fonction de nettoyage
 void	cleanup_game(t_game *game)
 {
+    quity(game, 0, "finito");
 	cleanup_textures(game);
 	if (game->mlx_data.img)
 		mlx_destroy_image(game->mlx_data.mlx, game->mlx_data.img);
@@ -52,4 +53,5 @@ void	cleanup_game(t_game *game)
 		mlx_destroy_window(game->mlx_data.mlx, game->mlx_data.win);
 	if (game->mlx_data.mlx)
 		mlx_destroy_display(game->mlx_data.mlx);
+    free_map(game);
 } 

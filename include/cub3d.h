@@ -174,7 +174,8 @@ int look_side(char **map, int i, int j, t_game *game);
 void get_map(int file, t_game *game);
 int add_line(t_game *game, char *line, int i);
 char *ft_dup_ws(char *line, int i);
-void set_floor_cell(char *line, t_game *game, char c);
+void set_floor_cell(char *line, t_game *game, char *c);
+char **sp_and_trimm(char *line, t_game *game, char **tab, char *c);
 
 // Nouvelles fonctions utilitaires manquantes
 int ft_strlen(const char *str);
@@ -186,11 +187,14 @@ char *ft_substr(char const *s, unsigned int start, size_t len);
 long atol(const char *str);
 void print_map(char **map);
 void print_all(t_game *game);
+char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strchre(const char *s, int c);
 
 // Fonctions de nettoyage adaptées à ta structure
 void quity(t_game *game, int j, char *str);
 void free_map(t_game *game);
 void free_mlx(t_game *game);
+void    free_tab(char **tab);
 
 // Fonctions de gestion des textures
 int load_texture(void *mlx, t_img *texture, char *path);
