@@ -6,7 +6,7 @@
 /*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:14:24 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/04 18:15:25 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/04 18:27:55 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ int	player_or_sp(char c, t_game *game, int i, int j)
 	{
 		game->parsed_data.p_num++;
 		set_pos(i, j, game);
-		if (check_move(i, j, game))
-			quity(game, -1, "peut pas bouger");
+		// if (check_move(i, j, game))
+		// 	quity(game, -1, "peut pas bouger");
 		return (1);
 	}
 	if (c == '0')
