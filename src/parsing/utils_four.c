@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_four.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 19:26:02 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/06/30 15:15:04 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 22:16:06 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ void	free_map(t_game *game)
 
 void	free_textures(t_game *game)
 {
-	int i;
-	
-	// Libération des chemins de textures
+	int	i;
+
 	if (game->parsed_data.texture_south)
 		free(game->parsed_data.texture_south);
 	if (game->parsed_data.texture_east)
@@ -43,15 +42,14 @@ void	free_textures(t_game *game)
 		free(game->parsed_data.texture_west);
 	if (game->parsed_data.texture_north)
 		free(game->parsed_data.texture_north);
-	
-	// Libération des images MLX (adapté à ta structure tex[4])
 	if (game->mlx_data.mlx)
 	{
 		i = 0;
 		while (i < 4)
 		{
 			if (game->textures.tex[i].img)
-				mlx_destroy_image(game->mlx_data.mlx, game->textures.tex[i].img);
+				mlx_destroy_image(game->mlx_data.mlx,
+					game->textures.tex[i].img);
 			i++;
 		}
 	}

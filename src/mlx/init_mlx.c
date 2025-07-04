@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:22:24 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/26 14:15:48 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 23:09:32 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	init_mlx(t_mlx_data *mlx_data)
 			&mlx_data->line_length, &mlx_data->endian);
 	if (mlx_data->addr == NULL)
 	{
-		printf("Erreur lors de la recuperation de l'adresse de l'image\n");
-		return (1);
+		return (printf("Erreur lors de la recuperation de l'adresse de l'image\n"), 1);
 	}
 	return (0);
 }

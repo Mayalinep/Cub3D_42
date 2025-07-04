@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:53:34 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/01 17:55:59 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 22:43:32 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "draw.h"
 #include "cub3d.h"
+#include "draw.h"
 
 void	put_pixel(int x, int y, int color, t_game *game)
 {
@@ -19,31 +19,28 @@ void	put_pixel(int x, int y, int color, t_game *game)
 
 	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
 		return ;
-	pixel = game->mlx_data.addr + (y * game->mlx_data.line_length + 
-			x * (game->mlx_data.bits_per_pixel / 8));
-	*(int*)pixel = color;
+	pixel = game->mlx_data.addr + (y * game->mlx_data.line_length + x
+			* (game->mlx_data.bits_per_pixel / 8));
+	*(int *)pixel = color;
 }
 
 int	get_wall_color(t_raycasting *ray)
 {
-	// Optimisation : utiliser les bits pour déterminer la couleur
-	// side = 0 (vertical) ou 1 (horizontal)
-	// step_x/step_y = -1 ou 1
 	int	color_index;
 
 	if (ray->side == 0)
 	{
 		if (ray->step_x > 0)
-			color_index = 1;  // EAST
+			color_index = 1;
 		else
-			color_index = 0;  // WEST
+			color_index = 0;
 	}
 	else
 	{
 		if (ray->step_y > 0)
-			color_index = 3;  // SOUTH
+			color_index = 3;
 		else
-			color_index = 2;  // NORTH
+			color_index = 2;
 	}
 	if (color_index == 0)
 		return (WALL_WEST_COLOR);
@@ -77,7 +74,6 @@ void	draw_vertical_line_color(int x, int line_height, t_game *game)
 	}
 }
 
-// Fonction pour déterminer quelle texture utiliser
 int	get_texture_index(t_raycasting *ray)
 {
 	if (ray->side == 0)
@@ -107,22 +103,14 @@ void	draw_vertical_line_texture(int x, int line_height, t_game *game)
 	double	tex_pos;
 	int		y;
 
-	// Calcul des positions de dessin
 	draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
 	draw_end = line_height / 2 + SCREEN_HEIGHT / 2;
-	
-	// Calcul du step pour la texture
 	step = 64.0 / line_height;
-	
-	// Limiter draw_start AVANT de calculer tex_pos (comme le code d'inspiration)
 	if (draw_start < 0)
 		draw_start = 0;
 	if (draw_end >= SCREEN_HEIGHT)
 		draw_end = SCREEN_HEIGHT - 1;
-	
-	// Maintenant calculer tex_pos avec draw_start déjà limité
 	tex_pos = (draw_start - SCREEN_HEIGHT / 2 + line_height / 2) * step;
-	
 	texture_index = get_texture_index(&game->raycasting);
 	tex_x = (int)(game->raycasting.wall_x * 64);
 	if (game->raycasting.side == 0 && game->raycasting.step_x < 0)
@@ -138,22 +126,22 @@ void	draw_vertical_line_texture(int x, int line_height, t_game *game)
 	{
 		tex_y = (int)tex_pos & 63;
 		tex_pos += step;
-		put_pixel(x, y, get_texture_pixel(&game->textures.tex[texture_index], tex_x, tex_y), game);
+		put_pixel(x, y, get_texture_pixel(&game->textures.tex[texture_index],
+				tex_x, tex_y), game);
 		y++;
 	}
 }
 
 void	draw_vertical_line(int x, int line_height, t_game *game)
 {
-	// Système de fallback : textures si chargées, sinon couleurs
 	if (game->textures.loaded)
 		draw_vertical_line_texture(x, line_height, game);
 	else
 		draw_vertical_line_color(x, line_height, game);
 }
 
-// Fonction pour dessiner une ligne horizontale
-void	draw_horizontal_line(int start_x, int end_x, int y, int color, t_game *game)
+void	draw_horizontal_line(int start_x, int end_x, int y, int color,
+		t_game *game)
 {
 	int	x;
 
@@ -171,13 +159,11 @@ void	draw_horizontal_line(int start_x, int end_x, int y, int color, t_game *game
 	}
 }
 
-// Fonction pour créer une couleur RGB
 int	create_rgb_color(int r, int g, int b)
 {
 	return ((r << 16) | (g << 8) | b);
 }
 
-// Fonction optimisée pour dessiner le sol et le ciel
 void	draw_floor_and_ceiling(t_game *game)
 {
 	int	y;
@@ -185,10 +171,9 @@ void	draw_floor_and_ceiling(t_game *game)
 	int	ceiling_color;
 
 	floor_color = create_rgb_color(game->parsed_data.floor_r,
-		game->parsed_data.floor_g, game->parsed_data.floor_b);
+			game->parsed_data.floor_g, game->parsed_data.floor_b);
 	ceiling_color = create_rgb_color(game->parsed_data.ceiling_r,
-		game->parsed_data.ceiling_g, game->parsed_data.ceiling_b);
-	
+			game->parsed_data.ceiling_g, game->parsed_data.ceiling_b);
 	y = 0;
 	while (y < SCREEN_HEIGHT)
 	{
@@ -199,4 +184,3 @@ void	draw_floor_and_ceiling(t_game *game)
 		y++;
 	}
 }
-

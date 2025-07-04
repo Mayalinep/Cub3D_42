@@ -174,7 +174,7 @@ int look_side(char **map, int i, int j, t_game *game);
 void get_map(int file, t_game *game);
 int add_line(t_game *game, char *line, int i);
 char *ft_dup_ws(char *line, int i);
-void set_floor_cell(char *line, t_game *game, char *c);
+void	set_floor_cell(char *line, t_game *game, char *c, int i);
 char **sp_and_trimm(char *line, t_game *game, char **tab, char *c);
 
 // Nouvelles fonctions utilitaires manquantes

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:45:00 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/01 17:54:41 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 22:48:00 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,30 @@ int	check_corner_collision(double new_x, double new_y, t_parsed_data *data)
 		if (new_map_x > old_x && new_map_y < old_y)
 		{
 			if (new_map_x - 1 >= 0 && data->map[new_map_y][new_map_x - 1] == '1'
-				&& new_map_y + 1 < data->map_height 
+				&& new_map_y + 1 < data->map_height
 				&& data->map[new_map_y + 1][new_map_x] == '1')
 				return (1);
 		}
 		else if (new_map_x > old_x && new_map_y > old_y)
 		{
 			if (new_map_x - 1 >= 0 && data->map[new_map_y][new_map_x - 1] == '1'
-				&& new_map_y - 1 >= 0 
+				&& new_map_y - 1 >= 0
 				&& data->map[new_map_y - 1][new_map_x] == '1')
 				return (1);
 		}
 		else if (new_map_x < old_x && new_map_y < old_y)
 		{
-			if (new_map_x + 1 < data->map_width 
+			if (new_map_x + 1 < data->map_width
 				&& data->map[new_map_y][new_map_x + 1] == '1'
-				&& new_map_y + 1 < data->map_height 
+				&& new_map_y + 1 < data->map_height
 				&& data->map[new_map_y + 1][new_map_x] == '1')
 				return (1);
 		}
 		else if (new_map_x < old_x && new_map_y > old_y)
 		{
-			if (new_map_x + 1 < data->map_width 
+			if (new_map_x + 1 < data->map_width
 				&& data->map[new_map_y][new_map_x + 1] == '1'
-				&& new_map_y - 1 >= 0 
+				&& new_map_y - 1 >= 0
 				&& data->map[new_map_y - 1][new_map_x] == '1')
 				return (1);
 		}
@@ -102,4 +102,4 @@ int	wall_collision(double new_x, double new_y, t_parsed_data *data)
 	if (is_too_close_to_wall(new_x, new_y, data, margin))
 		return (1);
 	return (0);
-} 
+}

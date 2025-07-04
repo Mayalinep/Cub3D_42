@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_control_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:35:00 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/01 17:07:47 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 22:48:25 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 // Déclaration de ray_casting_bonus
-int ray_casting_bonus(t_game *game);
+int		ray_casting_bonus(t_game *game);
 
 // Version bonus de update_player qui utilise ray_casting_bonus
-int update_player_bonus(t_game *game)
+int	update_player_bonus(t_game *game)
 {
 	if (game->keys.w_press)
 		try_move(game, game->parsed_data.dir_x, game->parsed_data.dir_y);
@@ -31,7 +31,8 @@ int update_player_bonus(t_game *game)
 	if (game->keys.r_press)
 		rotate_player(0.1, game);
 	ray_casting_bonus(game);
-	mlx_put_image_to_window(game->mlx_data.mlx, game->mlx_data.win, game->mlx_data.img, 0, 0);
+	mlx_put_image_to_window(game->mlx_data.mlx, game->mlx_data.win,
+		game->mlx_data.img, 0, 0);
 	return (0);
 }
 
@@ -84,9 +85,10 @@ void	init_mouse_events(t_game *game)
 }
 
 // Fonction main pour la version bonus (à compiler uniquement pour le bonus)
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_game game;
+	t_game	game;
+
 	memset(&game, 0, sizeof(t_game));
 	init_game(&game, ac, av);
 	if (init_mlx(&game.mlx_data) != 0 || init_keys(&game.keys) != 0)

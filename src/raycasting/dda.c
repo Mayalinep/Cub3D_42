@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 09:36:35 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/30 14:20:16 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 22:42:17 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,27 @@ void	dda_loop(t_game *game)
 	game->raycasting.map_y = map_y;
 }
 
-double	calculate_final_distance(double ray_dir_x, double ray_dir_y, t_game *game)
+double	calculate_final_distance(double ray_dir_x, double ray_dir_y,
+		t_game *game)
 {
-	double perp_wall_dist;
-	
+	double	perp_wall_dist;
+
 	if (game->raycasting.side == 0)
 	{
 		// Mur vertical (Est ou Ouest)
-		perp_wall_dist = (game->raycasting.map_x - game->parsed_data.player_x 
-			+ (1 - game->raycasting.step_x) / 2.0) / ray_dir_x;
+		perp_wall_dist = (game->raycasting.map_x - game->parsed_data.player_x
+				+ (1 - game->raycasting.step_x) / 2.0) / ray_dir_x;
 	}
 	else
 	{
 		// Mur horizontal (Nord ou Sud)
-		perp_wall_dist = (game->raycasting.map_y - game->parsed_data.player_y 
-			+ (1 - game->raycasting.step_y) / 2.0) / ray_dir_y;
+		perp_wall_dist = (game->raycasting.map_y - game->parsed_data.player_y
+				+ (1 - game->raycasting.step_y) / 2.0) / ray_dir_y;
 	}
-	
 	// S'assurer que la distance est positive et pas trop petite
 	if (perp_wall_dist < 0)
 		perp_wall_dist = -perp_wall_dist;
 	if (perp_wall_dist < 0.2)
 		perp_wall_dist = 0.2;
-	
 	return (perp_wall_dist);
 }

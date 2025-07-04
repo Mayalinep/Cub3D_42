@@ -6,124 +6,21 @@
 /*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:14:24 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/04 18:27:55 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/04 22:41:20 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	verif_part_one(int ac, char **av, t_game *game)
+void	init_game(t_game *game, int ac, char **av)
 {
-	int	i;
-
-	i = ft_strlen(av[1]);
-	if (ac != 2)
-		return (-1);
-	if ((av[1][--i]) != 'b')
-		return (-1);
-	if ((av[1][--i]) != 'u')
-		return (-1);
-	if ((av[1][--i]) != 'c')
-		return (-1);
-	if ((av[1][--i]) != '.')
-		return (-1);
-	game->parsed_data.file = open(av[1], R_OK);
-	if (game->parsed_data.file == -1)
-		return (printf("er01\n"), -1);
-	get_map(game->parsed_data.file, game);
-	// get_next_line(-1);
-	return (0);
+	set_zero(game);
+	verif_part_one(ac, av, game);
+	verif_part_two(game);
+	if (game->parsed_data.p_num != 1)
+		quity(game, -1, "nombre de jouers incorrects\n");
 }
 
-void	set_pos(int i, int j, t_game *game)
-{
-	char c;
-
-	c = game->parsed_data.map[j][i];
-	game->parsed_data.player_x = i;
-	game->parsed_data.player_y = j;
-	 if (c == 'N') { game->parsed_data.dir_x = 0; game->parsed_data.dir_y = -1; game->parsed_data.plane_x = 0.66; game->parsed_data.plane_y = 0; }
-               
-	 else if (c == 'S') { game->parsed_data.dir_x = 0; game->parsed_data.dir_y = 1; game->parsed_data.plane_x = -0.66; game->parsed_data.plane_y = 0; }
-                
-	 else if (c == 'E') { game->parsed_data.dir_x = 1; game->parsed_data.dir_y = 0; game->parsed_data.plane_x = 0; game->parsed_data.plane_y = 0.66; }
-                
-	 else if (c == 'W') { game->parsed_data.dir_x = -1; game->parsed_data.dir_y = 0; game->parsed_data.plane_x = 0; game->parsed_data.plane_y = -0.66; }
-	
-}
-
-int	check_move(int i, int j, t_game *game)
-{
-	char **map;
-	int fl;
-	
-	map = game->parsed_data.map;
-	fl = 0;
-	if (!map || !map[i] || i < 1 || j < 1)
-		return (-1);
-	if (!map[i + 1] || !map[i - 1])
-		quity(game, -1, "Invalid map: missing lines");
-	if ((int)ft_strlen(map[i - 1]) <= j + 1 || (int)ft_strlen(map[i + 1]) <= j + 1)
-		quity(game, -1, "Invalid map: line too short");
-	if ((int)ft_strlen(map[i]) <= j + 1 || j <= 0)
-		quity(game, -1, "Invalid map: index out of bounds");
-
-	if (map[i][j - 1] == '1' || map[i][j + 1] == '1')
-		fl++;
-	if (map[i - 1][j - 1] == '1' || map[i - 1][j] == '1' || map[i - 1][j + 1] == '1')
-		fl++;
-	if (map[i + 1][j - 1] == '1' || map[i + 1][j] == '1' || map[i + 1][j + 1] == '1')
-		fl++;
-	return (fl);
-}
-
-
-int	player_or_sp(char c, t_game *game, int i, int j)
-{
-	if (c == ' ')
-		look_side(game->parsed_data.map, i, j, game);
-	else if (c != 'S' && c != 'E' && c != 'N' && c != 'W' && c != '0' && c != '1' && c != '\n')
-		quity(game, -1, "char invalide");
-	if (c == 'S' || c == 'E' || c == 'N' || c == 'W')
-	{
-		game->parsed_data.p_num++;
-		set_pos(i, j, game);
-		// if (check_move(i, j, game))
-		// 	quity(game, -1, "peut pas bouger");
-		return (1);
-	}
-	if (c == '0')
-		return (1);
-	return (0);
-}
-
-void	verif_part_two(t_game *game)
-{
-	int	i;
-	int	j;
-
-	if (!game->parsed_data.texture_south || !game->parsed_data.texture_east
-		|| !game->parsed_data.texture_west
-		|| !game->parsed_data.texture_north)
-		quity(game, 5, "textures inorrectes");
-	i = 0;
-	j = 0;
-	while (game->parsed_data.map[j])
-	{
-		while (game->parsed_data.map[j][i]) 
-		{
-			if(ft_strlen(game->parsed_data.map[j]) > game->parsed_data.map_width)
-			 game->parsed_data.map_width = ft_strlen(game->parsed_data.map[j]);
-			if (player_or_sp (game->parsed_data.map[j][i], game, i, j)
-				&& look_side(game->parsed_data.map, i, j, game) == 1)
-				quity(game, 2, "map open");
-			i++;
-		}
-		i = 0;
-		j++;
-	}
-	game->parsed_data.map_height = j;
-}
 void	set_zero(t_game *game)
 {
 	int	i;
@@ -149,28 +46,82 @@ void	set_zero(t_game *game)
 		game->parsed_data.map[i++] = NULL;
 }
 
-void	init_game(t_game *game, int ac, char **av)
+int	verif_part_one(int ac, char **av, t_game *game)
 {
-	set_zero(game);
-	verif_part_one(ac, av, game);
-	verif_part_two(game);
-	if (game->parsed_data.p_num != 1)
-		quity(game, -1, "nombre de jouers incorrects\n");
-	//print_all(game);
+	int	i;
+
+	i = ft_strlen(av[1]);
+	if (ac != 2)
+		return (-1);
+	if ((av[1][--i]) != 'b')
+		return (-1);
+	if ((av[1][--i]) != 'u')
+		return (-1);
+	if ((av[1][--i]) != 'c')
+		return (-1);
+	if ((av[1][--i]) != '.')
+		return (-1);
+	game->parsed_data.file = open(av[1], R_OK);
+	if (game->parsed_data.file == -1)
+		return (-1);
+	get_map(game->parsed_data.file, game);
+	return (0);
 }
 
-void	print_all(t_game *game)
+void	verif_part_two(t_game *game)
 {
-	int i = 0;
-	printf("les couleurs du ciel r = %i\n g = %i\nb = %i\n", game->parsed_data.ceiling_r,
-	game->parsed_data.ceiling_g,
-	game->parsed_data.ceiling_b);
-	printf("les couleurs du sol r = %i\n g = %i\nb = %i\n", game->parsed_data.floor_r,
-	game->parsed_data.floor_g,
-	game->parsed_data.floor_b);
-	while (game->parsed_data.map[i])
-		printf("le ligne %s", game->parsed_data.map[i++]);
-	printf("les textures sud %sles textures est %sles textures west %sles textures nord %s",
-		game->parsed_data.texture_south, game->parsed_data.texture_east, game->parsed_data.texture_east, game->parsed_data.texture_north);
-	
+	int	i;
+	int	j;
+
+	if (!game->parsed_data.texture_south || !game->parsed_data.texture_east
+		|| !game->parsed_data.texture_west || !game->parsed_data.texture_north)
+		quity(game, 5, "textures inorrectes");
+	i = 0;
+	j = 0;
+	while (game->parsed_data.map[j])
+	{
+		while (game->parsed_data.map[j][i])
+		{
+			if (ft_strlen(game->parsed_data.map[j])
+				> game->parsed_data.map_width)
+				game->parsed_data.map_width
+					= ft_strlen(game->parsed_data.map[j]);
+			if (player_or_sp(game->parsed_data.map[j][i], game, i, j)
+				&& look_side(game->parsed_data.map, i, j, game) == 1)
+				quity(game, 2, "map open");
+			i++;
+		}
+		i = 0;
+		j++;
+	}
+	game->parsed_data.map_height = j;
+}
+
+void	get_map(int file, t_game *game)
+{
+	int		i;
+	int		flag;
+	int		fl;
+	char	*line;
+
+	i = 0;
+	flag = 1;
+	fl = 0;
+	while (flag)
+	{
+		line = get_next_line(file);
+		if (!line)
+			break ;
+		if (*line == '1')
+			fl = 1;
+		if (*line == '\n' && fl != 1)
+			free(line);
+		else if (look_one(line, game) != 0)
+			flag = add_line(game, line, i++);
+	}
+	while (game->parsed_data.map[--i] && game->parsed_data.map[i][0] == '\n')
+	{
+		free(game->parsed_data.map[i]);
+		game->parsed_data.map[i] = NULL;
+	}
 }

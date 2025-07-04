@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   animated_sprites.c                                 :+:      :+:    :+:   */
+/*   animated_sprites_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:35:00 by mpelage           #+#    #+#             */
-/*   Updated: 2025/06/30 16:35:34 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 22:48:48 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,4 @@ void	init_animated_sprites(t_game *game)
 {
 	// TODO: Charger les textures d'animation
 	(void)game;
-} 
+}

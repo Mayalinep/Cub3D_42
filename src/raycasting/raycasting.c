@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:36:47 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/01 17:54:06 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 23:15:46 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "draw.h"
 #include "cub3d.h"
+#include "draw.h"
 
 void	calculate_ray_direction(int x, t_game *game, double *ray_dir_x,
 		double *ray_dir_y)
@@ -83,6 +83,5 @@ int	ray_casting(t_game *game)
 		draw_vertical_line(x, line_height, game);
 		x++;
 	}
-	// draw_minimap(game); // Bonus feature - commenté pour version normale
 	return (0);
 }

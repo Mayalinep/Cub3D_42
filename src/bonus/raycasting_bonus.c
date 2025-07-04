@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:55:00 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/01 17:57:51 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 22:49:45 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,4 @@ int	ray_casting_bonus(t_game *game)
 	}
 	draw_minimap(game);
 	return (0);
-} 
+}

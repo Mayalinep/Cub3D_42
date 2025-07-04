@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:27:42 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/01 17:42:28 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/04 22:47:27 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <math.h>
 #include <time.h>
 
-// Calcul de la vitesse adaptative basée sur le temps
 double	calculate_adaptive_speed(void)
 {
 	static clock_t	prev_time = 0;
@@ -25,7 +24,6 @@ double	calculate_adaptive_speed(void)
 		prev_time = clock();
 	diff = (double)(clock() - prev_time) / CLOCKS_PER_SEC;
 	prev_time = clock();
-	// Vitesse de base adaptée au temps écoulé
 	speed = diff * 5.0;
 	if (speed > 0.1)
 		speed = 0.1;
