@@ -176,6 +176,13 @@ int add_line(t_game *game, char *line, int i);
 char *ft_dup_ws(char *line, int i);
 void	set_floor_cell(char *line, t_game *game, char *c, int i);
 char **sp_and_trimm(char *line, t_game *game, char **tab, char *c);
+int	look_zero(char **tab);
+int	color_assignation(t_game *game, char **tab, char *c);
+void	reset_pos(t_game *game);
+void	set_pos(int i, int j, t_game *game);
+void	set_zero(t_game *game);
+int	player_or_sp(char c, t_game *game, int i, int j);
+char	*verif_xpm(char *xpm, int *fl);
 
 // Nouvelles fonctions utilitaires manquantes
 int ft_strlen(const char *str);

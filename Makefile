@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+         #
+#    By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/26 00:00:00 by mpelage           #+#    #+#              #
-#    Updated: 2025/07/01 17:42:42 by mpelage          ###   ########.fr        #
+#    Updated: 2025/07/04 23:35:17 by ssoukoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS = main.c \
 	$(SRC_DIR)/parsing/utils.c \
 	$(SRC_DIR)/parsing/utils_two.c \
 	$(SRC_DIR)/parsing/utils_three.c \
+	$(SRC_DIR)/parsing/maping_two.c \
 	$(SRC_DIR)/parsing/utils_four.c \
 	$(SRC_DIR)/raycasting/dda.c \
 	$(SRC_DIR)/raycasting/raycasting_utils.c \
