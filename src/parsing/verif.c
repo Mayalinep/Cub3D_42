@@ -6,7 +6,7 @@
 /*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:14:24 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/04 22:41:20 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/08 13:21:33 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void	init_game(t_game *game, int ac, char **av)
 	set_zero(game);
 	verif_part_one(ac, av, game);
 	verif_part_two(game);
+	if (!game->parsed_data.map[0])
+		quity(game, -1, "map vide");
 	if (game->parsed_data.p_num != 1)
-		quity(game, -1, "nombre de jouers incorrects\n");
+		quity(game, -1, "nombre de jouers incorrects");
 }
 
 void	set_zero(t_game *game)
@@ -65,7 +67,24 @@ int	verif_part_one(int ac, char **av, t_game *game)
 	if (game->parsed_data.file == -1)
 		return (-1);
 	get_map(game->parsed_data.file, game);
+	close(game->parsed_data.file);
 	return (0);
+}
+
+void	print_all(t_game *game)
+{
+	// int i = 0;
+	printf("les couleurs du ciel r = %i\ng = %i\nb = %i\n", game->parsed_data.ceiling_r,
+	game->parsed_data.ceiling_g,
+	game->parsed_data.ceiling_b);
+	printf("les couleurs du sol r = %i\n g = %i\nb = %i\n", game->parsed_data.floor_r,
+	game->parsed_data.floor_g,
+	game->parsed_data.floor_b);
+	// while (game->parsed_data.map[i])
+	// 	printf("le ligne %s", game->parsed_data.map[i++]);
+	printf("les textures sud %s\nles textures est %s\nles textures west %s\nles textures nord %s\n",
+		game->parsed_data.texture_south, game->parsed_data.texture_east, game->parsed_data.texture_east, game->parsed_data.texture_north);
+	
 }
 
 void	verif_part_two(t_game *game)
@@ -73,6 +92,7 @@ void	verif_part_two(t_game *game)
 	int	i;
 	int	j;
 
+	// print_all(game);
 	if (!game->parsed_data.texture_south || !game->parsed_data.texture_east
 		|| !game->parsed_data.texture_west || !game->parsed_data.texture_north)
 		quity(game, 5, "textures inorrectes");
@@ -118,10 +138,11 @@ void	get_map(int file, t_game *game)
 			free(line);
 		else if (look_one(line, game) != 0)
 			flag = add_line(game, line, i++);
+		else
+			free(line);
 	}
-	while (game->parsed_data.map[--i] && game->parsed_data.map[i][0] == '\n')
-	{
-		free(game->parsed_data.map[i]);
-		game->parsed_data.map[i] = NULL;
-	}
+	pad_map_lines(game->parsed_data.map);
+	// for (int k = 0; game->parsed_data.map[k]; k++)
+	// 	printf("map[%d] = \"%s\"\n", k, game->parsed_data.map[k]);
+	//end_map(game->parsed_data.map, i);
 }

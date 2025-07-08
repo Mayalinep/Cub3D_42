@@ -6,7 +6,7 @@
 /*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 19:27:15 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/04 22:29:09 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:11:40 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,15 @@ int	look_sprites(t_game *game)
 		|| game->parsed_data.floor_r < 0 || game->parsed_data.floor_r > 255)
 		return (-1);
 	return (0);
+}
+
+void	end_map(char **tab, int i)
+{
+	if (i == 0)
+		return ;
+	while (tab[--i] && tab[i][0] == '\n')
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+	}
 }

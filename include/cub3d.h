@@ -35,6 +35,7 @@
 
 // Définition pour le parsing
 #define MAX_MAP_LINES 100
+#define MAX_MAP_LEN 100
 
 typedef struct s_mlx_data
 {
@@ -164,6 +165,8 @@ char *ft_strdup(const char *s);
 void cleanup_parsed_data(t_parsed_data *data);
 void cleanup_game(t_game *game);
 void init_textures(t_textures *textures);
+void	*ft_memset(void *s, int c, size_t n);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 // Nouvelles fonctions de parsing
 void init_game(t_game *game, int ac, char **av);
@@ -182,7 +185,11 @@ void	reset_pos(t_game *game);
 void	set_pos(int i, int j, t_game *game);
 void	set_zero(t_game *game);
 int	player_or_sp(char c, t_game *game, int i, int j);
-char	*verif_xpm(char *xpm, int *fl);
+char	*verif_xpm(char *xpm);
+int	look_one_two(char *line, t_game *game);
+int	str_look(char *str, char c);
+void	end_map(char **tab, int i);
+void	pad_map_lines(char **map);
 
 // Nouvelles fonctions utilitaires manquantes
 int ft_strlen(const char *str);
@@ -193,7 +200,6 @@ void *ft_calloc(size_t nmemb, size_t size);
 char *ft_substr(char const *s, unsigned int start, size_t len);
 long atol(const char *str);
 void print_map(char **map);
-void print_all(t_game *game);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strchre(const char *s, int c);
 

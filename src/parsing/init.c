@@ -6,7 +6,7 @@
 /*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:59:05 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/04 22:40:38 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/08 13:28:29 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,21 @@ void	set_floor_cell(char *line, t_game *game, char *c, int i)
 
 char	*ft_dup_ws(char *line, int i)
 {
+	int		start;
+	int		end;
 	char	*str;
-	int		len;
 
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
-	str = ft_strdup(line + i);
-	len = ft_strlen(str);
-	if (len > 0 && str[len - 1] == '\n')
-		str[len - 1] = '\0';
+	start = i;
+	end = ft_strlen(line) - 1;
+	while (end > start && (line[end] == '\n' || line[end] == ' ' || line[end] == '\t'))
+		end--;
+	str = ft_substr(line, start, end - start + 1);
 	free(line);
 	return (str);
 }
+
 
 void	set_pos(int i, int j, t_game *game)
 {
