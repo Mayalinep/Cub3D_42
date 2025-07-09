@@ -191,6 +191,7 @@ int	str_look(char *str, char c);
 void	end_map(char **tab, int i);
 void	pad_map_lines(char **map);
 char	*k_spaces(char *line);
+int	max_l(char **tab);
 
 // Nouvelles fonctions utilitaires manquantes
 int ft_strlen(const char *str);

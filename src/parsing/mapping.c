@@ -6,7 +6,7 @@
 /*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 19:31:38 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/09 11:38:08 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:03:39 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ int	player_or_sp(char c, t_game *game, int i, int j)
 	else if (c == '1' || c == ' ' || c == '\n')
 		return (0);
 	else
-	{
-		printf("%s a i = %i et j = %i\n", game->parsed_data.map[i], i, j);
 		quity(game, -1, "caractère invalide dans la map");
-	}
 	return (0);
 }
 

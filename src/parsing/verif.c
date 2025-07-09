@@ -6,7 +6,7 @@
 /*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:14:24 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/09 11:42:49 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/09 17:58:51 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,11 @@ void	verif_part_two(t_game *game)
 		quity(game, 5, "textures inorrectes");
 	i = 0;
 	j = 0;
+	game->parsed_data.map_width = max_l(game->parsed_data.map);
 	while (game->parsed_data.map[j])
 	{
 		while (game->parsed_data.map[j][i])
 		{
-			if (ft_strlen(game->parsed_data.map[j])
-				> game->parsed_data.map_width)
-				game->parsed_data.map_width
-					= ft_strlen(game->parsed_data.map[j]);
 			if (player_or_sp(game->parsed_data.map[j][i], game, i, j)
 				&& look_side(game->parsed_data.map, i, j, game) == 1)
 				quity(game, 2, "map open");
