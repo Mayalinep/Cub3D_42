@@ -6,7 +6,7 @@
 /*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:14:24 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/08 13:21:33 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/09 11:42:49 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,28 +71,11 @@ int	verif_part_one(int ac, char **av, t_game *game)
 	return (0);
 }
 
-void	print_all(t_game *game)
-{
-	// int i = 0;
-	printf("les couleurs du ciel r = %i\ng = %i\nb = %i\n", game->parsed_data.ceiling_r,
-	game->parsed_data.ceiling_g,
-	game->parsed_data.ceiling_b);
-	printf("les couleurs du sol r = %i\n g = %i\nb = %i\n", game->parsed_data.floor_r,
-	game->parsed_data.floor_g,
-	game->parsed_data.floor_b);
-	// while (game->parsed_data.map[i])
-	// 	printf("le ligne %s", game->parsed_data.map[i++]);
-	printf("les textures sud %s\nles textures est %s\nles textures west %s\nles textures nord %s\n",
-		game->parsed_data.texture_south, game->parsed_data.texture_east, game->parsed_data.texture_east, game->parsed_data.texture_north);
-	
-}
-
 void	verif_part_two(t_game *game)
 {
 	int	i;
 	int	j;
 
-	// print_all(game);
 	if (!game->parsed_data.texture_south || !game->parsed_data.texture_east
 		|| !game->parsed_data.texture_west || !game->parsed_data.texture_north)
 		quity(game, 5, "textures inorrectes");
@@ -142,7 +125,4 @@ void	get_map(int file, t_game *game)
 			free(line);
 	}
 	pad_map_lines(game->parsed_data.map);
-	// for (int k = 0; game->parsed_data.map[k]; k++)
-	// 	printf("map[%d] = \"%s\"\n", k, game->parsed_data.map[k]);
-	//end_map(game->parsed_data.map, i);
 }

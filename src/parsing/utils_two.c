@@ -6,7 +6,7 @@
 /*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 19:22:39 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/08 12:52:53 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/09 11:39:26 by ssoukoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,38 +112,4 @@ char	**ft_split(char const *s, char c)
 	if (!tab)
 		return (NULL);
 	return (tab);
-}
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	char	*dd;
-	char	*ss;
-	size_t	i;
-
-	ss = (char *)src;
-	dd = (char *)dest;
-	i = 0;
-	if (!ss && !dd)
-		return (NULL);
-	while (i < n)
-	{
-		dd[i] = ss[i];
-		i++;
-	}
-	return (dest);
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	size_t			i;
-	unsigned char	*ss;
-
-	ss = (unsigned char *)s;
-	i = 0;
-	while (i < n)
-	{
-		ss[i] = (unsigned char)c;
-		i++;
-	}
-	return (s);
 }

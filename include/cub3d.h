@@ -190,6 +190,7 @@ int	look_one_two(char *line, t_game *game);
 int	str_look(char *str, char c);
 void	end_map(char **tab, int i);
 void	pad_map_lines(char **map);
+char	*k_spaces(char *line);
 
 // Nouvelles fonctions utilitaires manquantes
 int ft_strlen(const char *str);
