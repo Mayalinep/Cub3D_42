@@ -6,7 +6,7 @@
 #    By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/26 00:00:00 by mpelage           #+#    #+#              #
-#    Updated: 2025/07/10 11:08:33 by mpelage          ###   ########.fr        #
+#    Updated: 2025/07/10 14:16:32 by mpelage          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ SRCS = main.c \
 	$(SRC_DIR)/raycasting/raycasting_utils.c \
 	$(SRC_DIR)/raycasting/raycasting.c \
 	$(SRC_DIR)/rendering/draw.c \
+	$(SRC_DIR)/rendering/draw_other.c \
+	$(SRC_DIR)/rendering/utils_draw.c \
 	$(SRC_DIR)/rendering/textures.c \
 	$(SRC_DIR)/utils/string_utils.c \
 	GNL/get_next_line.c \
@@ -76,6 +78,8 @@ SRCS_BONUS = \
 	$(SRC_DIR)/raycasting/raycasting_utils.c \
 	$(SRC_DIR)/raycasting/raycasting.c \
 	$(SRC_DIR)/rendering/draw.c \
+	$(SRC_DIR)/rendering/draw_other.c \
+	$(SRC_DIR)/rendering/utils_draw.c \
 	$(SRC_DIR)/rendering/textures.c \
 	$(SRC_DIR)/utils/string_utils.c \
 	GNL/get_next_line.c \
