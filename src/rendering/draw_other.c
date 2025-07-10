@@ -6,13 +6,12 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 14:15:12 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/10 14:17:14 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 14:42:51 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "draw.h"
-
 
 void	draw_floor_and_ceiling(t_game *game)
 {
@@ -28,9 +27,11 @@ void	draw_floor_and_ceiling(t_game *game)
 	while (y < SCREEN_HEIGHT)
 	{
 		if (y < SCREEN_HEIGHT / 2)
-			draw_horizontal_line((t_x_range){0, SCREEN_WIDTH - 1}, y, ceiling_color, game);
+			draw_horizontal_line((t_range){0, SCREEN_WIDTH - 1}, y,
+				ceiling_color, game);
 		else
-			draw_horizontal_line((t_x_range){0, SCREEN_WIDTH - 1}, y, floor_color, game);
+			draw_horizontal_line((t_range){0, SCREEN_WIDTH - 1}, y, floor_color,
+				game);
 		y++;
 	}
 }

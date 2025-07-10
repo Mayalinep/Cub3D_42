@@ -6,13 +6,12 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 14:11:20 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/10 14:21:31 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 14:32:48 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "draw.h"
-
 
 void	put_pixel(int x, int y, int color, t_game *game)
 {
@@ -76,15 +75,15 @@ int	create_rgb_color(int r, int g, int b)
 	return ((r << 16) | (g << 8) | b);
 }
 
-t_y_range	calculate_draw_range(int line_height)
+t_range	calculate_draw_range(int line_height)
 {
-	t_y_range	range;
+	t_range	range;
 
-	range.start_y = -line_height / 2 + SCREEN_HEIGHT / 2;
-	range.end_y = line_height / 2 + SCREEN_HEIGHT / 2;
-	if (range.start_y < 0)
-		range.start_y = 0;
-	if (range.end_y >= SCREEN_HEIGHT)
-		range.end_y = SCREEN_HEIGHT - 1;
+	range.start = -line_height / 2 + SCREEN_HEIGHT / 2;
+	range.end = line_height / 2 + SCREEN_HEIGHT / 2;
+	if (range.start < 0)
+		range.start = 0;
+	if (range.end >= SCREEN_HEIGHT)
+		range.end = SCREEN_HEIGHT - 1;
 	return (range);
 }

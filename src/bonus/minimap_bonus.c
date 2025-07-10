@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 22:49:06 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/10 11:00:53 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 14:58:28 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,18 @@
 
 void	draw_minimap_square(int map_x, int map_y, int color, t_game *game)
 {
-	int	x;
-	int	y;
-	int	screen_x;
-	int	screen_y;
-	int	scale;
-	int	offset_x;
-	int	offset_y;
+	t_minimap_coords	coords;
+	int					x;
+	int					y;
 
-	scale = 8;
-	offset_x = SCREEN_WIDTH - (game->parsed_data.map_width * scale) - 20;
-	offset_y = 20;
-	screen_x = map_x * scale + offset_x;
-	screen_y = map_y * scale + offset_y;
+	coords = calculate_minimap_coords(map_x, map_y, game);
 	y = 0;
-	while (y < scale)
+	while (y < coords.scale)
 	{
 		x = 0;
-		while (x < scale)
+		while (x < coords.scale)
 		{
-			put_pixel(screen_x + x, screen_y + y, color, game);
+			put_pixel(coords.screen_x + x, coords.screen_y + y, color, game);
 			x++;
 		}
 		y++;

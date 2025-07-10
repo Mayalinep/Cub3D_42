@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:53:34 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/10 14:23:01 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 14:30:56 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	draw_vertical_line_color(int x, int line_height, t_game *game)
 	}
 }
 
-
 int	calculate_texture_coords(t_game *game, int *texture_index)
 {
 	int	tex_x;
@@ -54,25 +53,24 @@ int	calculate_texture_coords(t_game *game, int *texture_index)
 
 void	draw_vertical_line_texture(int x, int line_height, t_game *game)
 {
-	t_y_range	range;
-	int			y;
-	int			tex_x;
-	int			tex_y;
-	int			texture_index;
-	double		step;
-	double		tex_pos;
+	t_range			range;
+	t_texture_data	tex_data;
+	int				y;
+	double			step;
+	double			tex_pos;
 
 	range = calculate_draw_range(line_height);
-	tex_x = calculate_texture_coords(game, &texture_index);
+	tex_data.tex_x = calculate_texture_coords(game, &tex_data.texture_index);
 	step = 64.0 / line_height;
-	tex_pos = (range.start_y - SCREEN_HEIGHT / 2 + line_height / 2) * step;
-	y = range.start_y;
-	while (y <= range.end_y)
+	tex_pos = (range.start - SCREEN_HEIGHT / 2 + line_height / 2) * step;
+	y = range.start;
+	while (y <= range.end)
 	{
-		tex_y = (int)tex_pos & 63;
+		tex_data.tex_y = (int)tex_pos & 63;
 		tex_pos += step;
-		put_pixel(x, y, get_texture_pixel(&game->textures.tex[texture_index],
-				tex_x, tex_y), game);
+		put_pixel(x, y,
+			get_texture_pixel(&game->textures.tex[tex_data.texture_index],
+				tex_data.tex_x, tex_data.tex_y), game);
 		y++;
 	}
 }
@@ -85,18 +83,18 @@ void	draw_vertical_line(int x, int line_height, t_game *game)
 		draw_vertical_line_color(x, line_height, game);
 }
 
-void	draw_horizontal_line(t_x_range x_range, int y, int color, t_game *game)
+void	draw_horizontal_line(t_range x_range, int y, int color, t_game *game)
 {
 	int	x;
 
 	if (y < 0 || y >= SCREEN_HEIGHT)
 		return ;
-	if (x_range.start_x < 0)
-		x_range.start_x = 0;
-	if (x_range.end_x >= SCREEN_WIDTH)
-		x_range.end_x = SCREEN_WIDTH - 1;
-	x = x_range.start_x;
-	while (x <= x_range.end_x)
+	if (x_range.start < 0)
+		x_range.start = 0;
+	if (x_range.end >= SCREEN_WIDTH)
+		x_range.end = SCREEN_WIDTH - 1;
+	x = x_range.start;
+	while (x <= x_range.end)
 	{
 		put_pixel(x, y, color, game);
 		x++;

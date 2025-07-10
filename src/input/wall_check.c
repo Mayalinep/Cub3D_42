@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:45:00 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/10 10:22:56 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 15:08:29 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	wall_collision(double new_x, double new_y, t_parsed_data *data)
 {
 	double	margin;
 
-	margin = 0.05;
+	margin = 0.09;
 	if (new_y < margin || new_y >= data->map_height - margin || new_x < margin
 		|| new_x >= data->map_width - margin)
 		return (1);

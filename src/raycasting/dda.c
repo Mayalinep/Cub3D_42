@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 09:36:35 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/10 11:21:53 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 14:41:53 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,14 @@ double	calculate_final_distance(double ray_dir_x, double ray_dir_y,
 
 	if (game->raycasting.side == 0)
 	{
-		// Mur vertical (Est ou Ouest)
 		perp_wall_dist = (game->raycasting.map_x - game->parsed_data.player_x
 				+ (1 - game->raycasting.step_x) / 2.0) / ray_dir_x;
 	}
 	else
 	{
-		// Mur horizontal (Nord ou Sud)
 		perp_wall_dist = (game->raycasting.map_y - game->parsed_data.player_y
 				+ (1 - game->raycasting.step_y) / 2.0) / ray_dir_y;
 	}
-	// S'assurer que la distance est positive et pas trop petite
 	if (perp_wall_dist < 0)
 		perp_wall_dist = -perp_wall_dist;
 	if (perp_wall_dist < 0.2)
