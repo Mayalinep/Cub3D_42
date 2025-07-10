@@ -220,12 +220,16 @@ void cleanup_textures(t_game *game);
 // Fonctions bonus (compilées seulement si BONUS_FEATURES=1)
 int mouse_rotation(int x, int y, void *param);
 void init_mouse_events(t_game *game);
-void update_animated_sprites(t_game *game);
-void draw_animated_sprites(t_game *game);
-void init_animated_sprites(t_game *game);
-void check_door_interaction(t_game *game);
-void toggle_door(t_game *game, int x, int y);
-void init_doors(t_game *game);
+void cleanup_mouse_events(t_game *game);
 void put_pixel(int x, int y, int color, t_game *game);
+
+// Fonctions minimap bonus
+void draw_minimap(t_game *game);
+void draw_minimap_walls(t_game *game);
+void draw_minimap_player(t_game *game);
+void draw_minimap_direction(t_game *game);
+
+// Fonctions raycasting bonus
+int ray_casting_bonus(t_game *game);
 
 #endif

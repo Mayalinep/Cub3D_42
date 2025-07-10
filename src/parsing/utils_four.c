@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_four.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 19:26:02 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/04 22:16:06 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/10 10:26:15 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	free_textures(t_game *game)
 
 void	free_mlx(t_game *game)
 {
+	if (game->mlx_data.mlx && game->mlx_data.win)
+		mlx_mouse_show(game->mlx_data.mlx, game->mlx_data.win);
 	if (game->mlx_data.img && game->mlx_data.mlx)
 		mlx_destroy_image(game->mlx_data.mlx, game->mlx_data.img);
 	if (game->mlx_data.win)

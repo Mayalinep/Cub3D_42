@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+         #
+#    By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/26 00:00:00 by mpelage           #+#    #+#              #
-#    Updated: 2025/07/09 11:44:33 by ssoukoun         ###   ########.fr        #
+#    Updated: 2025/07/10 10:48:12 by mpelage          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,8 +54,6 @@ SRCS = main.c \
 # Fichiers sources bonus (main bonus + tous les fichiers obligatoires sauf main.c)
 SRCS_BONUS = \
 	$(SRC_DIR)/bonus/mouse_control_bonus.c \
-	$(SRC_DIR)/bonus/animated_sprites_bonus.c \
-	$(SRC_DIR)/bonus/doors_bonus.c \
 	$(SRC_DIR)/bonus/minimap_bonus.c \
 	$(SRC_DIR)/bonus/raycasting_bonus.c \
 	$(SRC_DIR)/input/keyboard_utils.c \

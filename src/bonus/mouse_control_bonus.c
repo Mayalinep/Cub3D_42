@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_control_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:35:00 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/04 22:48:25 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/10 10:51:56 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// Déclaration de ray_casting_bonus
-int		ray_casting_bonus(t_game *game);
 
 // Version bonus de update_player qui utilise ray_casting_bonus
 int	update_player_bonus(t_game *game)
@@ -75,6 +72,13 @@ int	mouse_rotation(int x, int y, void *param)
 	return (0);
 }
 
+// Fonction pour nettoyer les événements souris
+void	cleanup_mouse_events(t_game *game)
+{
+	if (game->mlx_data.mlx && game->mlx_data.win)
+		mlx_mouse_show(game->mlx_data.mlx, game->mlx_data.win);
+}
+
 // Fonction pour initialiser les événements souris
 void	init_mouse_events(t_game *game)
 {
@@ -104,6 +108,7 @@ int	main(int ac, char **av)
 	mlx_hook(game.mlx_data.win, 17, 1L << 17, handle_close, &game);
 	mlx_loop_hook(game.mlx_data.mlx, update_player_bonus, &game);
 	mlx_loop(game.mlx_data.mlx);
+	cleanup_mouse_events(&game);
 	quity(&game, 0, "finito");
 	return (0);
 }
