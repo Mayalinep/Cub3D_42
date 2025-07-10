@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 19:31:38 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/09 18:03:39 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:28:35 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	look_one_two(char *line, t_game *game)
+{
+	if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "F", 1) == 0)
+		return (set_floor_cell(line, game, "F ", 0), 0);
+	if (ft_strncmp(line, "C ", 2) == 0 || ft_strncmp(line, "C", 2) == 0)
+		return (set_floor_cell(line, game, "C ", 0), 0);
+	free(line);
+	return (1);
+}
 
 int	look_one(char *line, t_game *game)
 {
@@ -38,16 +48,6 @@ int	look_one(char *line, t_game *game)
 		return (0);
 	}
 	return (look_one_two(tr, game));
-}
-
-int	look_one_two(char *line, t_game *game)
-{
-	if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "F", 1) == 0)
-		return (set_floor_cell(line, game, "F ", 0), 0);
-	if (ft_strncmp(line, "C ", 2) == 0 || ft_strncmp(line, "C", 2) == 0)
-		return (set_floor_cell(line, game, "C ", 0), 0);
-	free(line);
-	return (1);
 }
 
 int	add_line(t_game *game, char *line, int i)

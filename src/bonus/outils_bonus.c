@@ -6,11 +6,12 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 11:08:07 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/10 14:58:36 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 15:35:01 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "draw.h"
 
 t_minimap_coords	calculate_minimap_coords(int map_x, int map_y, t_game *game)
 {

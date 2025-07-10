@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 12:27:42 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/04 22:47:27 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:35:01 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <math.h>
 #include <time.h>
 
-double	calculate_adaptive_speed(void)
+static double	calculate_adaptive_speed(void)
 {
 	static clock_t	prev_time = 0;
 	double			diff;

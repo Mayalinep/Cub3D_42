@@ -6,11 +6,12 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 22:49:06 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/10 14:58:28 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 15:30:19 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "draw.h"
 
 void	draw_minimap_square(int map_x, int map_y, int color, t_game *game)
 {

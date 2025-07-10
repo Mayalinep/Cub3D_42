@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:01:52 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/10 15:05:31 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 15:27:09 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,15 +140,6 @@ typedef struct s_game
 	t_textures		textures;
 }					t_game;
 
-typedef struct s_minimap_coords
-{
-	int				screen_x;
-	int				screen_y;
-	int				scale;
-	int				offset_x;
-	int				offset_y;
-}					t_minimap_coords;
-
 // Fonctions MLX et input
 int					init_mlx(t_mlx_data *mlx_data);
 int					init_keys(t_keys *keys);
@@ -201,12 +192,9 @@ char				**sp_and_trimm(char *line, t_game *game, char **tab,
 						char *c);
 int					look_zero(char **tab);
 int					color_assignation(t_game *game, char **tab, char *c);
-void				reset_pos(t_game *game);
 void				set_pos(int i, int j, t_game *game);
-void				set_zero(t_game *game);
 int					player_or_sp(char c, t_game *game, int i, int j);
 char				*verif_xpm(char *xpm);
-int					look_one_two(char *line, t_game *game);
 int					str_look(char *str, char c);
 void				end_map(char **tab, int i);
 void				pad_map_lines(char **map);
@@ -245,14 +233,6 @@ void				put_pixel(int x, int y, int color, t_game *game);
 void				manage_mouse_events(t_game *game, int init);
 void				setup_hooks(t_game *game);
 int					update_player_bonus(t_game *game);
-
-// Fonctions minimap bonus
-t_minimap_coords	calculate_minimap_coords(int map_x, int map_y,
-						t_game *game);
-void				draw_minimap(t_game *game);
-void				draw_minimap_walls(t_game *game);
-void				draw_minimap_player(t_game *game);
-void				draw_minimap_direction(t_game *game);
 
 // Fonctions raycasting bonus
 int					ray_casting_bonus(t_game *game);

@@ -3,27 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   verif.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:14:24 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/09 17:58:51 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:27:56 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_game(t_game *game, int ac, char **av)
-{
-	set_zero(game);
-	verif_part_one(ac, av, game);
-	verif_part_two(game);
-	if (!game->parsed_data.map[0])
-		quity(game, -1, "map vide");
-	if (game->parsed_data.p_num != 1)
-		quity(game, -1, "nombre de jouers incorrects");
-}
-
-void	set_zero(t_game *game)
+static void	set_zero(t_game *game)
 {
 	int	i;
 
@@ -46,6 +35,17 @@ void	set_zero(t_game *game)
 		exit(-2);
 	while (i < MAX_MAP_LINES)
 		game->parsed_data.map[i++] = NULL;
+}
+
+void	init_game(t_game *game, int ac, char **av)
+{
+	set_zero(game);
+	verif_part_one(ac, av, game);
+	verif_part_two(game);
+	if (!game->parsed_data.map[0])
+		quity(game, -1, "map vide");
+	if (game->parsed_data.p_num != 1)
+		quity(game, -1, "nombre de jouers incorrects");
 }
 
 int	verif_part_one(int ac, char **av, t_game *game)

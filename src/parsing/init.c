@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:59:05 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/09 11:22:41 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:35:01 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,14 @@ char	*ft_dup_ws(char *line, int i)
 	return (str);
 }
 
+static void	reset_pos(t_game *game)
+{
+	game->parsed_data.dir_x = game->parsed_data.dir_x * -1;
+	game->parsed_data.dir_y = game->parsed_data.dir_y * -1;
+	game->parsed_data.plane_x = game->parsed_data.plane_x * -1;
+	game->parsed_data.plane_y = game->parsed_data.plane_y * -1;
+}
+
 void	set_pos(int i, int j, t_game *game)
 {
 	game->parsed_data.player_x = i;
@@ -83,12 +91,4 @@ void	set_pos(int i, int j, t_game *game)
 		if (game->parsed_data.map[j][i] == 'W')
 			reset_pos(game);
 	}
-}
-
-void	reset_pos(t_game *game)
-{
-	game->parsed_data.dir_x = game->parsed_data.dir_x * -1;
-	game->parsed_data.dir_y = game->parsed_data.dir_y * -1;
-	game->parsed_data.plane_x = game->parsed_data.plane_x * -1;
-	game->parsed_data.plane_y = game->parsed_data.plane_y * -1;
 }

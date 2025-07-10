@@ -6,13 +6,13 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 09:36:35 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/10 14:41:53 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 15:35:01 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_hit(int map_x, int map_y, t_game *game)
+static int	check_hit(int map_x, int map_y, t_game *game)
 {
 	int	max_x;
 	int	max_y;

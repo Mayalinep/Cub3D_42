@@ -6,13 +6,14 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:45:00 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/10 15:08:29 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 15:32:03 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_too_close_to_wall(double x, double y, t_parsed_data *data, double margin)
+static int	is_too_close_to_wall(double x, double y, t_parsed_data *data,
+		double margin)
 {
 	int	check_x;
 	int	check_y;
