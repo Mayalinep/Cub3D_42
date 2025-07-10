@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:53:34 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/04 22:43:32 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/10 13:30:49 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,21 +96,19 @@ void	draw_vertical_line_texture(int x, int line_height, t_game *game)
 {
 	int		draw_start;
 	int		draw_end;
-	int		texture_index;
+	int		y;
 	int		tex_x;
 	int		tex_y;
+	int		texture_index;
 	double	step;
 	double	tex_pos;
-	int		y;
 
 	draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
 	draw_end = line_height / 2 + SCREEN_HEIGHT / 2;
-	step = 64.0 / line_height;
 	if (draw_start < 0)
 		draw_start = 0;
 	if (draw_end >= SCREEN_HEIGHT)
 		draw_end = SCREEN_HEIGHT - 1;
-	tex_pos = (draw_start - SCREEN_HEIGHT / 2 + line_height / 2) * step;
 	texture_index = get_texture_index(&game->raycasting);
 	tex_x = (int)(game->raycasting.wall_x * 64);
 	if (game->raycasting.side == 0 && game->raycasting.step_x < 0)
@@ -121,6 +119,8 @@ void	draw_vertical_line_texture(int x, int line_height, t_game *game)
 		tex_x = 0;
 	if (tex_x > 63)
 		tex_x = 63;
+	step = 64.0 / line_height;
+	tex_pos = (draw_start - SCREEN_HEIGHT / 2 + line_height / 2) * step;
 	y = draw_start;
 	while (y <= draw_end)
 	{

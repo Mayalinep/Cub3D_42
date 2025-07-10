@@ -3,27 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 09:36:35 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/04 22:42:17 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/10 11:21:53 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int	check_hit(int map_x, int map_y, t_game *game)
+{
+	int	max_x;
+	int	max_y;
+
+	max_x = game->parsed_data.map_width - 1;
+	max_y = game->parsed_data.map_height - 1;
+	if (map_x < 0 || map_x > max_x || map_y < 0 || map_y > max_y)
+		return (1);
+	if (game->parsed_data.map[map_y][map_x] == '1')
+		return (1);
+	return (0);
+}
+
 void	dda_loop(t_game *game)
 {
 	int	map_x;
 	int	map_y;
-	int	max_x;
-	int	max_y;
 
 	game->raycasting.hit = 0;
 	map_x = game->raycasting.map_x;
 	map_y = game->raycasting.map_y;
-	max_x = game->parsed_data.map_width - 1;
-	max_y = game->parsed_data.map_height - 1;
 	while (game->raycasting.hit == 0)
 	{
 		if (game->raycasting.side_dist_x < game->raycasting.side_dist_y)
@@ -38,13 +48,7 @@ void	dda_loop(t_game *game)
 			map_y += game->raycasting.step_y;
 			game->raycasting.side = 1;
 		}
-		if (map_x < 0 || map_x > max_x || map_y < 0 || map_y > max_y)
-		{
-			game->raycasting.hit = 1;
-			return ;
-		}
-		if (game->parsed_data.map[map_y][map_x] == '1')
-			game->raycasting.hit = 1;
+		game->raycasting.hit = check_hit(map_x, map_y, game);
 	}
 	game->raycasting.map_x = map_x;
 	game->raycasting.map_y = map_y;

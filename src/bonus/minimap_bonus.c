@@ -3,19 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 22:49:06 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/07/04 22:49:07 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/07/10 11:00:53 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_minimap_square(int map_x, int map_y, int scale, int offset_x,
-		int offset_y, int color, t_game *game)
+void	draw_minimap_square(int map_x, int map_y, int color, t_game *game)
 {
-	int x, y, screen_x, screen_y;
+	int	x;
+	int	y;
+	int	screen_x;
+	int	screen_y;
+	int	scale;
+	int	offset_x;
+	int	offset_y;
+
+	scale = 8;
+	offset_x = SCREEN_WIDTH - (game->parsed_data.map_width * scale) - 20;
+	offset_y = 20;
 	screen_x = map_x * scale + offset_x;
 	screen_y = map_y * scale + offset_y;
 	y = 0;
@@ -33,10 +42,10 @@ void	draw_minimap_square(int map_x, int map_y, int scale, int offset_x,
 
 void	draw_minimap_walls(t_game *game)
 {
-	int x, y, scale, offset_x, offset_y, line_len;
-	scale = 8;
-	offset_x = SCREEN_WIDTH - (game->parsed_data.map_width * scale) - 20;
-	offset_y = 20;
+	int	x;
+	int	y;
+	int	line_len;
+
 	y = 0;
 	while (y < game->parsed_data.map_height)
 	{
@@ -47,11 +56,9 @@ void	draw_minimap_walls(t_game *game)
 			while (x < game->parsed_data.map_width)
 			{
 				if (x < line_len && game->parsed_data.map[y][x] == '1')
-					draw_minimap_square(x, y, scale, offset_x, offset_y,
-						0x404040, game);
+					draw_minimap_square(x, y, 0x404040, game);
 				else
-					draw_minimap_square(x, y, scale, offset_x, offset_y,
-						0x202020, game);
+					draw_minimap_square(x, y, 0x202020, game);
 				x++;
 			}
 		}
@@ -61,12 +68,14 @@ void	draw_minimap_walls(t_game *game)
 
 void	draw_minimap_player(t_game *game)
 {
-	int scale, offset_x, offset_y, player_x, player_y, x, y;
-	scale = 8;
-	offset_x = SCREEN_WIDTH - (game->parsed_data.map_width * scale) - 20;
-	offset_y = 20;
-	player_x = (int)(game->parsed_data.player_x * scale) + offset_x;
-	player_y = (int)(game->parsed_data.player_y * scale) + offset_y;
+	int	player_x;
+	int	player_y;
+	int	x;
+	int	y;
+
+	player_x = (int)(game->parsed_data.player_x * 8) + (SCREEN_WIDTH
+			- (game->parsed_data.map_width * 8) - 20);
+	player_y = (int)(game->parsed_data.player_y * 8) + 20;
 	y = -2;
 	while (y <= 2)
 	{
@@ -84,13 +93,13 @@ void	draw_minimap_direction(t_game *game)
 {
 	int	x;
 	int	y;
+	int	player_x;
+	int	player_y;
+	int	i;
 
-	int scale, offset_x, offset_y, player_x, player_y, i;
-	scale = 8;
-	offset_x = SCREEN_WIDTH - (game->parsed_data.map_width * scale) - 20;
-	offset_y = 20;
-	player_x = (int)(game->parsed_data.player_x * scale) + offset_x;
-	player_y = (int)(game->parsed_data.player_y * scale) + offset_y;
+	player_x = (int)(game->parsed_data.player_x * 8) + (SCREEN_WIDTH
+			- (game->parsed_data.map_width * 8) - 20);
+	player_y = (int)(game->parsed_data.player_y * 8) + 20;
 	i = 0;
 	while (i < 10)
 	{

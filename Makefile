@@ -6,7 +6,7 @@
 #    By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/26 00:00:00 by mpelage           #+#    #+#              #
-#    Updated: 2025/07/10 10:48:12 by mpelage          ###   ########.fr        #
+#    Updated: 2025/07/10 11:08:33 by mpelage          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRCS_BONUS = \
 	$(SRC_DIR)/bonus/mouse_control_bonus.c \
 	$(SRC_DIR)/bonus/minimap_bonus.c \
 	$(SRC_DIR)/bonus/raycasting_bonus.c \
+	$(SRC_DIR)/bonus/outils_bonus.c \
 	$(SRC_DIR)/input/keyboard_utils.c \
 	$(SRC_DIR)/input/movement.c \
 	$(SRC_DIR)/input/wall_check.c \

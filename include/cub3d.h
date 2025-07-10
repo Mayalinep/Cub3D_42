@@ -222,6 +222,9 @@ int mouse_rotation(int x, int y, void *param);
 void init_mouse_events(t_game *game);
 void cleanup_mouse_events(t_game *game);
 void put_pixel(int x, int y, int color, t_game *game);
+void manage_mouse_events(t_game *game, int init);
+void setup_hooks(t_game *game);
+int update_player_bonus(t_game *game);
 
 // Fonctions minimap bonus
 void draw_minimap(t_game *game);

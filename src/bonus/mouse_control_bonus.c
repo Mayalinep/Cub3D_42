@@ -6,7 +6,7 @@
 /*   By: mpelage <mpelage@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:35:00 by mpelage           #+#    #+#             */
-/*   Updated: 2025/07/10 10:51:56 by mpelage          ###   ########.fr       */
+/*   Updated: 2025/07/10 11:10:29 by mpelage          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,6 @@ int	mouse_rotation(int x, int y, void *param)
 	return (0);
 }
 
-// Fonction pour nettoyer les événements souris
-void	cleanup_mouse_events(t_game *game)
-{
-	if (game->mlx_data.mlx && game->mlx_data.win)
-		mlx_mouse_show(game->mlx_data.mlx, game->mlx_data.win);
-}
-
-// Fonction pour initialiser les événements souris
-void	init_mouse_events(t_game *game)
-{
-	mlx_mouse_hide(game->mlx_data.mlx, game->mlx_data.win);
-	mlx_mouse_move(game->mlx_data.mlx, game->mlx_data.win, SCREEN_WIDTH / 2,
-		SCREEN_HEIGHT / 2);
-	mlx_hook(game->mlx_data.win, 6, 1L << 6, mouse_rotation, game);
-}
-
 // Fonction main pour la version bonus (à compiler uniquement pour le bonus)
 int	main(int ac, char **av)
 {
@@ -102,13 +86,9 @@ int	main(int ac, char **av)
 		quity(&game, 1, "erreur textures");
 		return (1);
 	}
-	mlx_hook(game.mlx_data.win, 2, 1L << 0, handle_keypress, &game);
-	mlx_hook(game.mlx_data.win, 3, 1L << 1, handle_keyrelease, &game);
-	init_mouse_events(&game);
-	mlx_hook(game.mlx_data.win, 17, 1L << 17, handle_close, &game);
-	mlx_loop_hook(game.mlx_data.mlx, update_player_bonus, &game);
+	setup_hooks(&game);
 	mlx_loop(game.mlx_data.mlx);
-	cleanup_mouse_events(&game);
+	manage_mouse_events(&game, 0);
 	quity(&game, 0, "finito");
 	return (0);
 }
